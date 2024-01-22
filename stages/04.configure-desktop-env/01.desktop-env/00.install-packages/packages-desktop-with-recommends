@@ -1,0 +1,17 @@
+lightdm
+xfce4
+desktop-base
+at-spi2-core
+dbus-x11
+accountsservice
+xorg
+xvfb
+gnome-terminal
+gnome-themes-extra
+network-manager-gnome
+wpasupplicant
+wireless-tools
+tumbler
+policykit-1
+plymouth
+chromium
