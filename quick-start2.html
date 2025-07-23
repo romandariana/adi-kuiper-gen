@@ -4,9 +4,9 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta content="If you encounter errors related to ARM emulation, first ensure you’ve properly set up the prerequisites as described in the Prerequisites section." name="description" />
+<meta content="This guide will help you build a basic Kuiper image with default settings." name="description" />
 
-    <title>Troubleshooting &#8212; Kuiper  documentation</title>
+    <title>Quick Start2 &#8212; Kuiper  documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8e8a900e" />
     <link rel="stylesheet" type="text/css" href="_static/app.min.css?v=33d8ff8e" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
@@ -17,7 +17,8 @@
     <link rel="icon" href="_static/icon.svg"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Repositories" href="repositories.html" />
+    <link rel="next" title="Configuration" href="configuration.html" />
+    <link rel="prev" title="Quick Start" href="quick-start.html" />
    
   
   <meta name="repository" content="adi-kuiper-gen">
@@ -89,11 +90,12 @@
         </div>
         <nav>
           <ul>
-<li><a class="reference internal" href="#">Troubleshooting</a><ul>
-<li><a class="reference internal" href="#cross-architecture-build-issues">Cross-Architecture Build Issues</a></li>
-<li><a class="reference internal" href="#docker-permission-issues">Docker Permission Issues</a></li>
-<li><a class="reference internal" href="#build-path-issues">Build Path Issues</a></li>
-<li><a class="reference internal" href="#other-issues">Other Issues</a></li>
+<li><a class="reference internal" href="#">Quick Start2</a><ul>
+<li><a class="reference internal" href="#clone-the-repository">1. Clone the Repository</a></li>
+<li><a class="reference internal" href="#review-default-configuration">2. Review Default Configuration</a></li>
+<li><a class="reference internal" href="#build-the-image">3. Build the Image</a></li>
+<li><a class="reference internal" href="#locate-the-output">4. Locate the Output</a></li>
+<li><a class="reference internal" href="#next-steps">Next Steps</a></li>
 </ul>
 </li>
 </ul>
@@ -126,12 +128,12 @@ Content on this topic
 <li class="toctree-l1"><a class="reference internal" href="prerequisites.html">Prerequisites</a></li>
 <li class="toctree-l1"><a class="reference internal" href="prerequisites2.html">Prerequisites2</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quick-start.html">Quick Start</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quick-start2.html">Quick Start2</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Quick Start2</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="build-flow.html">Build Flow</a></li>
 <li class="toctree-l1"><a class="reference internal" href="use-image.html">Using the Generated Image</a></li>
 <li class="toctree-l1"><a class="reference internal" href="repositories.html">Repositories</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Troubleshooting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Quick Reference</span></p>
 <ul>
@@ -152,70 +154,63 @@ Content on this topic
           
           <div class="body" role="main">
             
-  <section id="troubleshooting">
-<span id="id1"></span><h1>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading"></a></h1>
+  <section id="quick-start2">
+<span id="id1"></span><h1>Quick Start2<a class="headerlink" href="#quick-start2" title="Link to this heading"></a></h1>
+<p>This guide will help you build a basic Kuiper image with default settings.</p>
 <hr class="docutils" />
-<section id="cross-architecture-build-issues">
-<h2>Cross-Architecture Build Issues<a class="headerlink" href="#cross-architecture-build-issues" title="Link to this heading"></a></h2>
-<p>If you encounter errors related to ARM emulation, first ensure you’ve properly
-set up the prerequisites as described in the <a class="reference internal" href="prerequisites.html"><span class="doc">Prerequisites section</span></a>.</p>
-<p>Common error messages and their solutions:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>update-binfmts: warning: Couldn&#39;t load the binfmt_misc module.
+<section id="clone-the-repository">
+<h2>1. Clone the Repository<a class="headerlink" href="#clone-the-repository" title="Link to this heading"></a></h2>
+<p>After ensuring your build environment meets the <a class="reference internal" href="prerequisites.html"><span class="doc">prerequisites</span></a>, clone the repository:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>--depth<span class="w"> </span><span class="m">1</span><span class="w"> </span>https://github.com/analogdevicesinc/adi-kuiper-gen
+<span class="nb">cd</span><span class="w"> </span>adi-kuiper-gen
 </pre></div>
 </div>
-<p>OR</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>W: Failure trying to run: chroot chroot &quot;//armhf_rootfs&quot; /bin/true
+</section>
+<hr class="docutils" />
+<section id="review-default-configuration">
+<h2>2. Review Default Configuration<a class="headerlink" href="#review-default-configuration" title="Link to this heading"></a></h2>
+<p>The default configuration will build a basic 32-bit (armhf) Debian Bookworm image with Raspberry Pi boot files. For most users, this is sufficient to get started:</p>
+<ul class="simple">
+<li><p>Target architecture: <code class="docutils literal notranslate"><span class="pre">armhf</span></code> (32-bit)</p></li>
+<li><p>Debian version: <code class="docutils literal notranslate"><span class="pre">bookworm</span></code></p></li>
+<li><p>Essential boot files included: Yes</p></li>
+<li><p>Desktop environment: No</p></li>
+<li><p>ADI tools: None (can be enabled as needed)</p></li>
+</ul>
+<p>This configuration creates what we call the “Basic Image” that includes only essential components. For details on exactly what stages and components are included in this basic build, see the Basic Image section under Kuiper Versions.</p>
+<p>For customization options, see the <a class="reference internal" href="configuration.html"><span class="doc">Configuration</span></a> section.</p>
+</section>
+<hr class="docutils" />
+<section id="build-the-image">
+<h2>3. Build the Image<a class="headerlink" href="#build-the-image" title="Link to this heading"></a></h2>
+<p>Run the build script with sudo:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>./build-docker.sh
 </pre></div>
 </div>
-<p>OR</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>chroot: failed to run command &#39;/bin/true&#39;: Exec format error
-</pre></div>
-</div>
-<p><strong>Solution</strong>:</p>
-<ol class="arabic">
-<li><p>Verify these specific files exist on your system:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/lib/modules/<span class="k">$(</span>uname<span class="w"> </span>-r<span class="k">)</span>/kernel/fs/binfmt_misc.ko
-/usr/bin/qemu-arm-static
-</pre></div>
-</div>
-</li>
-<li><p>If necessary, install the missing packages and load the module:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>qemu-user-static<span class="w"> </span>binfmt-support
-sudo<span class="w"> </span>modprobe<span class="w"> </span>binfmt_misc
-</pre></div>
-</div>
-</li>
+<p>The build process will:</p>
+<ol class="arabic simple">
+<li><p>Create a Docker container with the necessary build environment</p></li>
+<li><p>Set up a minimal Debian system</p></li>
+<li><p>Configure system settings</p></li>
+<li><p>Install selected components based on your configuration</p></li>
+<li><p>Create a bootable image</p></li>
 </ol>
+<p>This process typically takes 30-60 minutes depending on your system and internet speed.</p>
 </section>
 <hr class="docutils" />
-<section id="docker-permission-issues">
-<h2>Docker Permission Issues<a class="headerlink" href="#docker-permission-issues" title="Link to this heading"></a></h2>
-<p>If you encounter permission errors when running Docker commands:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>permission<span class="w"> </span>denied<span class="w"> </span><span class="k">while</span><span class="w"> </span>trying<span class="w"> </span>to<span class="w"> </span>connect<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>Docker<span class="w"> </span>daemon<span class="w"> </span>socket
-</pre></div>
-</div>
-<p><strong>Solution</strong>:</p>
-<ol class="arabic">
-<li><p>Either prefix commands with <code class="docutils literal notranslate"><span class="pre">sudo</span></code> as shown in the build instructions</p></li>
-<li><p>Or add your user to the docker group (requires logout/login):</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>usermod<span class="w"> </span>-aG<span class="w"> </span>docker<span class="w"> </span><span class="nv">$USER</span>
-</pre></div>
-</div>
-</li>
-</ol>
+<section id="locate-the-output">
+<h2>4. Locate the Output<a class="headerlink" href="#locate-the-output" title="Link to this heading"></a></h2>
+<p>After a successful build, your Kuiper image will be available as a zip file in the <code class="docutils literal notranslate"><span class="pre">kuiper-volume/</span></code> directory within the repository. The filename will follow the pattern <code class="docutils literal notranslate"><span class="pre">image_YYYY-MM-DD-ADI-Kuiper-Linux-[arch].zip</span></code>.</p>
 </section>
 <hr class="docutils" />
-<section id="build-path-issues">
-<h2>Build Path Issues<a class="headerlink" href="#build-path-issues" title="Link to this heading"></a></h2>
-<p>If the build fails with debootstrap errors, check if your path contains spaces.
-As mentioned in the prerequisites, the build path must not contain spaces.</p>
-</section>
-<hr class="docutils" />
-<section id="other-issues">
-<h2>Other Issues<a class="headerlink" href="#other-issues" title="Link to this heading"></a></h2>
-<p>For other issues not covered here, please check the
-<a class="icon link reference external" href="https://github.com/analogdevicesinc/adi-kuiper-gen/issues" target="_blank">GitHub Issues</a>
-page or open a new issue with details about your problem.</p>
+<section id="next-steps">
+<h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>To write the image to an SD card and boot your device, see the <a class="reference internal" href="use-image.html"><span class="doc">Using the Generated Image</span></a> section</p></li>
+<li><p>To customize your build with additional tools or settings, see the <a class="reference internal" href="configuration.html"><span class="doc">Configuration</span></a> section</p></li>
+<li><p>To understand how the build process works, see the <a class="reference internal" href="build-flow.html"><span class="doc">Build Flow</span></a> section</p></li>
+<li><p>For troubleshooting build issues, see the <a class="reference internal" href="troubleshooting.html"><span class="doc">Troubleshooting</span></a> section</p></li>
+</ul>
 </section>
 </section>
 
@@ -223,8 +218,8 @@ page or open a new issue with details about your problem.</p>
           </div>
               <div class="related">
                 &nbsp;
-    <a href="repositories.html" title="Previous document (Alt+Shift+LeftArrow)" class="prev">Repositories</a>
-    <div></div>
+    <a href="quick-start.html" title="Previous document (Alt+Shift+LeftArrow)" class="prev">Quick Start</a>
+    <a href="configuration.html" title="Next document (Alt+Shift+RightArrow)" class="next">Configuration</a>
               </div>
           
         </div>

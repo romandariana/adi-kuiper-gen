@@ -4,9 +4,9 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta content="If you encounter errors related to ARM emulation, first ensure you’ve properly set up the prerequisites as described in the Prerequisites section." name="description" />
+<meta content="Kuiper uses multiple package repositories to install and update software. These repositories are configured during the build process in the bootstrap stage." name="description" />
 
-    <title>Troubleshooting &#8212; Kuiper  documentation</title>
+    <title>Repositories &#8212; Kuiper  documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8e8a900e" />
     <link rel="stylesheet" type="text/css" href="_static/app.min.css?v=33d8ff8e" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
@@ -17,7 +17,8 @@
     <link rel="icon" href="_static/icon.svg"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Repositories" href="repositories.html" />
+    <link rel="next" title="Troubleshooting" href="troubleshooting.html" />
+    <link rel="prev" title="Using the Generated Image" href="use-image.html" />
    
   
   <meta name="repository" content="adi-kuiper-gen">
@@ -89,11 +90,10 @@
         </div>
         <nav>
           <ul>
-<li><a class="reference internal" href="#">Troubleshooting</a><ul>
-<li><a class="reference internal" href="#cross-architecture-build-issues">Cross-Architecture Build Issues</a></li>
-<li><a class="reference internal" href="#docker-permission-issues">Docker Permission Issues</a></li>
-<li><a class="reference internal" href="#build-path-issues">Build Path Issues</a></li>
-<li><a class="reference internal" href="#other-issues">Other Issues</a></li>
+<li><a class="reference internal" href="#">Repositories</a><ul>
+<li><a class="reference internal" href="#adi-repository">ADI Repository</a></li>
+<li><a class="reference internal" href="#raspberry-pi-repository">Raspberry Pi Repository</a></li>
+<li><a class="reference internal" href="#installing-packages">Installing Packages</a></li>
 </ul>
 </li>
 </ul>
@@ -130,8 +130,8 @@ Content on this topic
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="build-flow.html">Build Flow</a></li>
 <li class="toctree-l1"><a class="reference internal" href="use-image.html">Using the Generated Image</a></li>
-<li class="toctree-l1"><a class="reference internal" href="repositories.html">Repositories</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Troubleshooting</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Repositories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Quick Reference</span></p>
 <ul>
@@ -152,70 +152,59 @@ Content on this topic
           
           <div class="body" role="main">
             
-  <section id="troubleshooting">
-<span id="id1"></span><h1>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Link to this heading"></a></h1>
+  <section id="repositories">
+<span id="id1"></span><h1>Repositories<a class="headerlink" href="#repositories" title="Link to this heading"></a></h1>
+<p>Kuiper uses multiple package repositories to install and update software.
+These repositories are configured during the build process in the bootstrap stage.</p>
 <hr class="docutils" />
-<section id="cross-architecture-build-issues">
-<h2>Cross-Architecture Build Issues<a class="headerlink" href="#cross-architecture-build-issues" title="Link to this heading"></a></h2>
-<p>If you encounter errors related to ARM emulation, first ensure you’ve properly
-set up the prerequisites as described in the <a class="reference internal" href="prerequisites.html"><span class="doc">Prerequisites section</span></a>.</p>
-<p>Common error messages and their solutions:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>update-binfmts: warning: Couldn&#39;t load the binfmt_misc module.
-</pre></div>
-</div>
-<p>OR</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>W: Failure trying to run: chroot chroot &quot;//armhf_rootfs&quot; /bin/true
-</pre></div>
-</div>
-<p>OR</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>chroot: failed to run command &#39;/bin/true&#39;: Exec format error
-</pre></div>
-</div>
-<p><strong>Solution</strong>:</p>
-<ol class="arabic">
-<li><p>Verify these specific files exist on your system:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>/lib/modules/<span class="k">$(</span>uname<span class="w"> </span>-r<span class="k">)</span>/kernel/fs/binfmt_misc.ko
-/usr/bin/qemu-arm-static
-</pre></div>
-</div>
-</li>
-<li><p>If necessary, install the missing packages and load the module:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>qemu-user-static<span class="w"> </span>binfmt-support
-sudo<span class="w"> </span>modprobe<span class="w"> </span>binfmt_misc
-</pre></div>
-</div>
-</li>
+<section id="adi-repository">
+<h2>ADI Repository<a class="headerlink" href="#adi-repository" title="Link to this heading"></a></h2>
+<p>The ADI APT repository is a collection of Debian package files that facilitates
+the distribution and installation of Analog Devices software packages. The
+repository contains .deb packages with boot files for carriers and Raspberry Pi.</p>
+<p><strong>Advantages of using the ADI repository:</strong></p>
+<ul class="simple">
+<li><p>Easy installation, removal, and upgrading of packages (<code class="docutils literal notranslate"><span class="pre">apt</span> <span class="pre">install</span></code>, <code class="docutils literal notranslate"><span class="pre">apt</span> <span class="pre">remove</span></code>, <code class="docutils literal notranslate"><span class="pre">apt</span> <span class="pre">upgrade</span></code>)</p></li>
+<li><p>Simplified version management</p></li>
+<li><p>Package manager handles dependency resolution and conflict detection</p></li>
+<li><p>Centralized distribution of ADI-specific packages</p></li>
+</ul>
+<p><strong>Available packages include:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">adi-carriers-boot-2022.r2</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">adi-carriers-boot-main</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">adi-rpi-boot-5.15.y</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">adi-rpi-boot-6.1</span></code></p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="raspberry-pi-repository">
+<h2>Raspberry Pi Repository<a class="headerlink" href="#raspberry-pi-repository" title="Link to this heading"></a></h2>
+<p>By default, the Kuiper image includes the official Raspberry Pi package
+repository in <code class="docutils literal notranslate"><span class="pre">/etc/apt/sources.list.d/raspi.list</span></code>. This repository provides
+access to Pi-specific packages and optimizations.</p>
+<p><strong>Using the Raspberry Pi repository:</strong></p>
+<ol class="arabic simple">
+<li><p>Edit <code class="docutils literal notranslate"><span class="pre">/etc/apt/sources.list.d/raspi.list</span></code> and uncomment the first line</p></li>
+<li><p>Update the package lists: <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt</span> <span class="pre">update</span></code></p></li>
+<li><p>Install packages as needed: <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt</span> <span class="pre">install</span> <span class="pre">&lt;package-name&gt;</span></code></p></li>
 </ol>
+<p>This gives you access to RPI-specific packages such as GPIO libraries,
+VideoCore tools, and other hardware-specific packages.</p>
 </section>
 <hr class="docutils" />
-<section id="docker-permission-issues">
-<h2>Docker Permission Issues<a class="headerlink" href="#docker-permission-issues" title="Link to this heading"></a></h2>
-<p>If you encounter permission errors when running Docker commands:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>permission<span class="w"> </span>denied<span class="w"> </span><span class="k">while</span><span class="w"> </span>trying<span class="w"> </span>to<span class="w"> </span>connect<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>Docker<span class="w"> </span>daemon<span class="w"> </span>socket
+<section id="installing-packages">
+<h2>Installing Packages<a class="headerlink" href="#installing-packages" title="Link to this heading"></a></h2>
+<p>To install packages from either repository on your running Kuiper system:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>update
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>&lt;package-name&gt;
 </pre></div>
 </div>
-<p><strong>Solution</strong>:</p>
-<ol class="arabic">
-<li><p>Either prefix commands with <code class="docutils literal notranslate"><span class="pre">sudo</span></code> as shown in the build instructions</p></li>
-<li><p>Or add your user to the docker group (requires logout/login):</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>usermod<span class="w"> </span>-aG<span class="w"> </span>docker<span class="w"> </span><span class="nv">$USER</span>
+<p>For example, to install Raspberry Pi boot files from the ADI repository:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>update
+sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>adi-rpi-boot-6.1
 </pre></div>
 </div>
-</li>
-</ol>
-</section>
-<hr class="docutils" />
-<section id="build-path-issues">
-<h2>Build Path Issues<a class="headerlink" href="#build-path-issues" title="Link to this heading"></a></h2>
-<p>If the build fails with debootstrap errors, check if your path contains spaces.
-As mentioned in the prerequisites, the build path must not contain spaces.</p>
-</section>
-<hr class="docutils" />
-<section id="other-issues">
-<h2>Other Issues<a class="headerlink" href="#other-issues" title="Link to this heading"></a></h2>
-<p>For other issues not covered here, please check the
-<a class="icon link reference external" href="https://github.com/analogdevicesinc/adi-kuiper-gen/issues" target="_blank">GitHub Issues</a>
-page or open a new issue with details about your problem.</p>
 </section>
 </section>
 
@@ -223,8 +212,8 @@ page or open a new issue with details about your problem.</p>
           </div>
               <div class="related">
                 &nbsp;
-    <a href="repositories.html" title="Previous document (Alt+Shift+LeftArrow)" class="prev">Repositories</a>
-    <div></div>
+    <a href="use-image.html" title="Previous document (Alt+Shift+LeftArrow)" class="prev">Using the Generated Image</a>
+    <a href="troubleshooting.html" title="Next document (Alt+Shift+RightArrow)" class="next">Troubleshooting</a>
               </div>
           
         </div>

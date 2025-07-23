@@ -20,7 +20,7 @@
   --kuiper-card-gap: 1.5rem;
   
   /* Component-specific variables */
-  --kuiper-hero-gradient: linear-gradient(135deg, var(--kuiper-primary) 0%, var(--kuiper-secondary) 100%);
+  --kuiper-hero-gradient: linear-gradient(135deg, #fafafa 0%, #f5f5f4 100%);
   --kuiper-card-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --kuiper-card-shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
@@ -32,7 +32,7 @@
 /* Hero Banner - New component, doesn't override ADI styles */
 .hero-banner {
   background: var(--kuiper-hero-gradient);
-  color: white;
+  color: rgb(7, 7, 7);
   padding: 2rem;
   border-radius: 8px;
   text-align: center;

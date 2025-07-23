@@ -4,20 +4,21 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta content="Before building your first Kuiper image, ensure your development environment meets these requirements. We’ve designed this guide to help you verify and set up everything needed for a successful build." name="description" />
 
     <title>Prerequisites &#8212; Kuiper  documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8e8a900e" />
     <link rel="stylesheet" type="text/css" href="_static/app.min.css?v=33d8ff8e" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=cac192c7" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=a466df2e" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
     <script async="async" src="_static/app.umd.js?v=cd58f2cb"></script>
     <script src="_static/design-tabs.js?v=f930bc37"></script>
     <link rel="icon" href="_static/icon.svg"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Quick Start" href="quick-start.html" />
-    <link rel="prev" title="Kuiper - Embedded Linux for Analog Devices Products" href="index.html" />
+    <link rel="next" title="Prerequisites2" href="prerequisites2.html" />
+    <link rel="prev" title="Why Choose Kuiper?" href="index.html" />
    
   
   <meta name="repository" content="adi-kuiper-gen">
@@ -89,7 +90,19 @@
         </div>
         <nav>
           <ul>
-<li><a class="reference internal" href="#">Prerequisites</a></li>
+<li><a class="reference internal" href="#">Prerequisites</a><ul>
+<li><a class="reference internal" href="#system-requirements">System Requirements</a></li>
+<li><a class="reference internal" href="#required-software">Required Software</a><ul>
+<li><a class="reference internal" href="#docker-installation">Docker Installation</a></li>
+<li><a class="reference internal" href="#cross-architecture-support">Cross-Architecture Support</a></li>
+<li><a class="reference internal" href="#kernel-module-setup">Kernel Module Setup</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#pre-build-verification">Pre-Build Verification</a></li>
+<li><a class="reference internal" href="#common-setup-issues">Common Setup Issues</a></li>
+<li><a class="reference internal" href="#next-steps">Next Steps</a></li>
+</ul>
+</li>
 </ul>
 
         </nav>
@@ -118,9 +131,13 @@ Content on this topic
   <body><p class="caption" role="heading"><span class="caption-text">Documentation Sections</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Prerequisites</a></li>
+<li class="toctree-l1"><a class="reference internal" href="prerequisites2.html">Prerequisites2</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quick-start.html">Quick Start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quick-start2.html">Quick Start2</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
 <li class="toctree-l1"><a class="reference internal" href="build-flow.html">Build Flow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="use-image.html">Using the Generated Image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="repositories.html">Repositories</a></li>
 <li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Quick Reference</span></p>
@@ -144,14 +161,348 @@ Content on this topic
             
   <section id="prerequisites">
 <span id="id1"></span><h1>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading"></a></h1>
+<p>Before building your first Kuiper image, ensure your development environment
+meets these requirements. We’ve designed this guide to help you verify and
+set up everything needed for a successful build.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p><strong>Operating System Support</strong></p>
+<p>Ubuntu 22.04 LTS is the recommended and officially supported platform.
+Other Linux distributions may work but could encounter compatibility issues.</p>
+<p><strong>Windows is not supported</strong> for Kuiper builds.</p>
+</div>
+<hr class="docutils" />
+<section id="system-requirements">
+<h2>System Requirements<a class="headerlink" href="#system-requirements" title="Link to this heading"></a></h2>
+<div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
+<div class="sd-row sd-row-cols-1 sd-row-cols-xs-1 sd-row-cols-sm-2 sd-row-cols-md-2 sd-row-cols-lg-2 sd-g-3 sd-g-xs-3 sd-g-sm-3 sd-g-md-3 sd-g-lg-3 docutils">
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+💾 <strong>Storage Space</strong></div>
+<p class="sd-card-text"><strong>Minimum:</strong> 10GB free disk space</p>
+<ul class="simple">
+<li><p class="sd-card-text">Base system: ~3GB</p></li>
+<li><p class="sd-card-text">Build artifacts: ~4GB</p></li>
+<li><p class="sd-card-text">Docker images: ~2GB</p></li>
+<li><p class="sd-card-text">Output files: ~1GB</p></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+🖥️ <strong>Memory &amp; CPU</strong></div>
+<p class="sd-card-text"><strong>Recommended:</strong> 8GB RAM, 4+ CPU cores</p>
+<ul class="simple">
+<li><p class="sd-card-text">Minimum: 4GB RAM, 2 cores</p></li>
+<li><p class="sd-card-text">Build time scales with CPU cores</p></li>
+<li><p class="sd-card-text">More RAM = faster Docker operations</p></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+🌐 <strong>Network Access</strong></div>
+<p class="sd-card-text"><strong>Required:</strong> Stable internet connection</p>
+<ul class="simple">
+<li><p class="sd-card-text">Package downloads: ~1-2GB</p></li>
+<li><p class="sd-card-text">Git repository access</p></li>
+<li><p class="sd-card-text">Docker Hub access</p></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+⚠️ <strong>Path Requirements</strong></div>
+<p class="sd-card-text"><strong>Critical:</strong> No spaces in repository path</p>
+<ul class="simple">
+<li><p class="sd-card-text">✅ Good: <code class="docutils literal notranslate"><span class="pre">/home/user/kuiper</span></code></p></li>
+<li><p class="sd-card-text">❌ Bad: <code class="docutils literal notranslate"><span class="pre">/home/user/my</span> <span class="pre">projects/kuiper</span></code></p></li>
+<li><p class="sd-card-text">Required by debootstrap</p></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="required-software">
+<h2>Required Software<a class="headerlink" href="#required-software" title="Link to this heading"></a></h2>
+<section id="docker-installation">
+<h3>Docker Installation<a class="headerlink" href="#docker-installation" title="Link to this heading"></a></h3>
+<p>Docker is essential for creating the isolated build environment. Kuiper requires
+Docker version 24.0.6 or newer.</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-0">
+Check Installation</label><div class="sd-tab-content docutils">
+<p>Verify if Docker is already installed:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>--version
+<span class="c1"># Expected output: Docker version 24.0.6 or higher</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-1">
+Install Docker</label><div class="sd-tab-content docutils">
+<p>If Docker isn’t installed, follow the official guide:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Quick installation for Ubuntu</span>
+curl<span class="w"> </span>-fsSL<span class="w"> </span>https://get.docker.com<span class="w"> </span>-o<span class="w"> </span>get-docker.sh
+sudo<span class="w"> </span>sh<span class="w"> </span>get-docker.sh
+</pre></div>
+</div>
+<p>For complete installation instructions, visit:
+<a class="icon link reference external" href="https://docs.docker.com/engine/install/" target="_blank">https://docs.docker.com/engine/install/</a></p>
+</div>
+<input id="sd-tab-item-2" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-2">
+User Permissions</label><div class="sd-tab-content docutils">
+<p>Add your user to the docker group (optional but recommended):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>usermod<span class="w"> </span>-aG<span class="w"> </span>docker<span class="w"> </span><span class="nv">$USER</span>
+<span class="c1"># Log out and back in for changes to take effect</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you skip this step, you’ll need to use <code class="docutils literal notranslate"><span class="pre">sudo</span></code> with all
+docker commands, which the build script already handles.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="cross-architecture-support">
+<h3>Cross-Architecture Support<a class="headerlink" href="#cross-architecture-support" title="Link to this heading"></a></h3>
+<p>To build ARM-based images on x86 systems, you need these packages:</p>
+<div class="literal-block-wrapper docutils container" id="id2">
+<div class="code-block-caption"><span class="caption-text">Install cross-architecture support</span><a class="headerlink" href="#id2" title="Link to this code"></a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt-get<span class="w"> </span>update
+sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>qemu-user-static<span class="w"> </span>binfmt-support
+</pre></div>
+</div>
+</div>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header sd-bg-info sd-bg-text-info">
+<span class="sd-summary-text">What do these packages do?</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<ul class="simple">
+<li><p class="sd-card-text"><strong>qemu-user-static</strong>: Emulates ARM architecture on x86 systems</p></li>
+<li><p class="sd-card-text"><strong>binfmt-support</strong>: Allows the kernel to run binaries from different architectures</p></li>
+</ul>
+<p class="sd-card-text">These enable your x86 computer to build ARM images that will run on
+Raspberry Pi and other ARM-based devices.</p>
+</div>
+</details></section>
+<section id="kernel-module-setup">
+<h3>Kernel Module Setup<a class="headerlink" href="#kernel-module-setup" title="Link to this heading"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">binfmt_misc</span></code> kernel module must be loaded:</p>
+<div class="literal-block-wrapper docutils container" id="id3">
+<div class="code-block-caption"><span class="caption-text">Load the required kernel module</span><a class="headerlink" href="#id3" title="Link to this code"></a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>modprobe<span class="w"> </span>binfmt_misc
+</pre></div>
+</div>
+</div>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-3">
+Verify Module</label><div class="sd-tab-content docutils">
+<p>Check if the module is loaded:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>lsmod<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>binfmt_misc
+<span class="c1"># Should show: binfmt_misc</span>
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-4" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-4">
+Persistent Loading</label><div class="sd-tab-content docutils">
+<p>To load automatically on boot, add to <code class="docutils literal notranslate"><span class="pre">/etc/modules</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;binfmt_misc&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>-a<span class="w"> </span>/etc/modules
+</pre></div>
+</div>
+</div>
+<input id="sd-tab-item-5" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-5">
+WSL Users</label><div class="sd-tab-content docutils">
+<p>If using Windows Subsystem for Linux:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>update-binfmts<span class="w"> </span>--enable
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="pre-build-verification">
+<h2>Pre-Build Verification<a class="headerlink" href="#pre-build-verification" title="Link to this heading"></a></h2>
+<p>Run this verification script to ensure everything is properly configured:</p>
+<div class="literal-block-wrapper docutils container" id="id4">
+<div class="code-block-caption"><span class="caption-text">Complete system verification</span><a class="headerlink" href="#id4" title="Link to this code"></a></div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;🔍 Kuiper Prerequisites Verification&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;==================================&quot;</span>
+
+<span class="c1"># Check OS</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="k">$(</span>lsb_release<span class="w"> </span>-rs<span class="k">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s2">&quot;22.04&quot;</span><span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;✅ Ubuntu 22.04 LTS detected&quot;</span>
+<span class="k">else</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;⚠️  OS: </span><span class="k">$(</span>lsb_release<span class="w"> </span>-d<span class="w"> </span>-s<span class="k">)</span><span class="s2"> (Ubuntu 22.04 recommended)&quot;</span>
+<span class="k">fi</span>
+
+<span class="c1"># Check Docker</span>
+<span class="k">if</span><span class="w"> </span><span class="nb">command</span><span class="w"> </span>-v<span class="w"> </span>docker<span class="w"> </span><span class="p">&amp;</span>&gt;<span class="w"> </span>/dev/null<span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nv">DOCKER_VERSION</span><span class="o">=</span><span class="k">$(</span>docker<span class="w"> </span>--version<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-oP<span class="w"> </span><span class="s1">&#39;\d+\.\d+\.\d+&#39;</span><span class="k">)</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;✅ Docker </span><span class="nv">$DOCKER_VERSION</span><span class="s2"> installed&quot;</span>
+<span class="k">else</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;❌ Docker not found - please install Docker&quot;</span>
+<span class="k">fi</span>
+
+<span class="c1"># Check cross-architecture support</span>
+<span class="k">if</span><span class="w"> </span><span class="nb">command</span><span class="w"> </span>-v<span class="w"> </span>qemu-arm-static<span class="w"> </span><span class="p">&amp;</span>&gt;<span class="w"> </span>/dev/null<span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;✅ qemu-user-static installed&quot;</span>
+<span class="k">else</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;❌ qemu-user-static missing&quot;</span>
+<span class="k">fi</span>
+
+<span class="c1"># Check binfmt module</span>
+<span class="k">if</span><span class="w"> </span>lsmod<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-q<span class="w"> </span>binfmt_misc<span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;✅ binfmt_misc module loaded&quot;</span>
+<span class="k">else</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;❌ binfmt_misc module not loaded&quot;</span>
+<span class="k">fi</span>
+
+<span class="c1"># Check disk space</span>
+<span class="nv">AVAILABLE</span><span class="o">=</span><span class="k">$(</span>df<span class="w"> </span>.<span class="w"> </span><span class="p">|</span><span class="w"> </span>tail<span class="w"> </span>-1<span class="w"> </span><span class="p">|</span><span class="w"> </span>awk<span class="w"> </span><span class="s1">&#39;{print $4}&#39;</span><span class="k">)</span>
+<span class="k">if</span><span class="w"> </span><span class="o">[[</span><span class="w"> </span><span class="nv">$AVAILABLE</span><span class="w"> </span>-gt<span class="w"> </span><span class="m">10485760</span><span class="w"> </span><span class="o">]]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span><span class="w">  </span><span class="c1"># 10GB in KB</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;✅ Sufficient disk space available&quot;</span>
+<span class="k">else</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;⚠️  Less than 10GB free space available&quot;</span>
+<span class="k">fi</span>
+
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;&quot;</span>
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;If any items show ❌, please address them before building.&quot;</span>
+</pre></div>
+</div>
+</div>
+<p>Save this script and run it to verify your setup:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>chmod<span class="w"> </span>+x<span class="w"> </span>verify-prereqs.sh
+./verify-prereqs.sh
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="common-setup-issues">
+<h2>Common Setup Issues<a class="headerlink" href="#common-setup-issues" title="Link to this heading"></a></h2>
+<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header sd-bg-warning sd-bg-text-warning">
+<span class="sd-summary-text">“Permission denied” when running Docker</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text"><strong>Problem:</strong> Cannot access Docker daemon without sudo</p>
+<p class="sd-card-text"><strong>Solutions:</strong></p>
+<ol class="arabic">
+<li><p class="sd-card-text"><strong>Recommended:</strong> Use sudo with the build script (no setup required):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>./build-docker.sh
+</pre></div>
+</div>
+</li>
+<li><p class="sd-card-text"><strong>Alternative:</strong> Add user to docker group:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>usermod<span class="w"> </span>-aG<span class="w"> </span>docker<span class="w"> </span><span class="nv">$USER</span>
+<span class="c1"># Log out and back in</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header sd-bg-warning sd-bg-text-warning">
+<span class="sd-summary-text">“Exec format error” during build</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text"><strong>Problem:</strong> Cannot execute ARM binaries</p>
+<p class="sd-card-text"><strong>Solution:</strong> Ensure cross-architecture support is properly installed:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Reinstall packages</span>
+sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>--reinstall<span class="w"> </span>qemu-user-static<span class="w"> </span>binfmt-support
+
+<span class="c1"># Reload module</span>
+sudo<span class="w"> </span>modprobe<span class="w"> </span>-r<span class="w"> </span>binfmt_misc
+sudo<span class="w"> </span>modprobe<span class="w"> </span>binfmt_misc
+
+<span class="c1"># Verify files exist</span>
+ls<span class="w"> </span>-la<span class="w"> </span>/usr/bin/qemu-arm-static
+</pre></div>
+</div>
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header sd-bg-warning sd-bg-text-warning">
+<span class="sd-summary-text">Build fails with “No space left on device”</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text"><strong>Problem:</strong> Insufficient disk space during build</p>
+<p class="sd-card-text"><strong>Solutions:</strong></p>
+<ul class="simple">
+<li><p class="sd-card-text">Clean Docker system: <code class="docutils literal notranslate"><span class="pre">docker</span> <span class="pre">system</span> <span class="pre">prune</span> <span class="pre">-a</span></code></p></li>
+<li><p class="sd-card-text">Move to larger partition</p></li>
+<li><p class="sd-card-text">Free up at least 15GB for comfortable building</p></li>
+</ul>
+</div>
+</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
+<summary class="sd-summary-title sd-card-header sd-bg-warning sd-bg-text-warning">
+<span class="sd-summary-text">Repository path contains spaces</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
+<p class="sd-card-text"><strong>Problem:</strong> debootstrap fails with path containing spaces</p>
+<p class="sd-card-text"><strong>Solution:</strong> Move repository to path without spaces:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Bad: /home/user/my projects/kuiper-gen</span>
+<span class="c1"># Good: /home/user/kuiper-gen</span>
+mv<span class="w"> </span><span class="s2">&quot;/home/user/my projects/kuiper-gen&quot;</span><span class="w"> </span>/home/user/kuiper-gen
+</pre></div>
+</div>
+</div>
+</details></section>
+<hr class="docutils" />
+<section id="next-steps">
+<h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading"></a></h2>
+<p>Once all prerequisites are satisfied:</p>
+<div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
+<div class="sd-row sd-row-cols-1 sd-row-cols-xs-1 sd-row-cols-sm-2 sd-row-cols-md-2 sd-row-cols-lg-2 sd-g-2 sd-g-xs-2 sd-g-sm-2 sd-g-md-2 sd-g-lg-2 docutils">
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+🚀 <strong>Ready to Build</strong></div>
+<p class="sd-card-text">Your system is configured! Proceed to the Quick Start guide to
+build your first Kuiper image.</p>
+</div>
+<a class="sd-stretched-link sd-hide-link-text reference internal" href="quick-start.html"><span class="doc">Quick Start</span></a></div>
+</div>
+<div class="sd-col sd-d-flex-row docutils">
+<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">
+<div class="sd-card-body docutils">
+<div class="sd-card-title sd-font-weight-bold docutils">
+🔧 <strong>Customize First</strong></div>
+<p class="sd-card-text">Want to customize your build? Check out the configuration options
+before building.</p>
+</div>
+<a class="sd-stretched-link sd-hide-link-text reference internal" href="configuration.html"><span class="doc">Configuration</span></a></div>
+</div>
+</div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p><strong>Save Time on Future Builds</strong></p>
+<p>Once you’ve completed this setup, these prerequisites remain valid for
+all future Kuiper builds. You only need to do this once per system!</p>
+</div>
+</section>
 </section>
 
 
           </div>
               <div class="related">
                 &nbsp;
-    <a href="index.html" title="Previous document (Alt+Shift+LeftArrow)" class="prev">Kuiper - Embedded Linux for Analog Devices Products</a>
-    <a href="quick-start.html" title="Next document (Alt+Shift+RightArrow)" class="next">Quick Start</a>
+    <a href="index.html" title="Previous document (Alt+Shift+LeftArrow)" class="prev">Why Choose Kuiper?</a>
+    <a href="prerequisites2.html" title="Next document (Alt+Shift+RightArrow)" class="next">Prerequisites2</a>
               </div>
           
         </div>

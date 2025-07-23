@@ -3,25 +3,28 @@
 <html lang="en" data-content_root="./">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Search &#8212; Kuiper  documentation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta content="Operating System: Ubuntu 22.04 LTS is recommended. Other Linux distributions or versions may not work as expected." name="description" />
+
+    <title>Prerequisites2 &#8212; Kuiper  documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8e8a900e" />
     <link rel="stylesheet" type="text/css" href="_static/app.min.css?v=33d8ff8e" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
     <link rel="stylesheet" type="text/css" href="_static/custom.css?v=a466df2e" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
-    
     <script async="async" src="_static/app.umd.js?v=cd58f2cb"></script>
     <script src="_static/design-tabs.js?v=f930bc37"></script>
     <link rel="icon" href="_static/icon.svg"/>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="#" />
-    <meta name="robots" content="noindex" />
-    
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Quick Start" href="quick-start.html" />
+    <link rel="prev" title="Prerequisites" href="prerequisites.html" />
    
   
   <meta name="repository" content="adi-kuiper-gen">
   <meta name="version" content="">
+  
+    <meta name="page_source_suffix" content=".rst">
   
   
 
@@ -41,7 +44,6 @@
     }
   }
 </style>
-
   </head><body>
   <input type="checkbox" id="input-show-toc">
   <input type="checkbox" id="input-show-localtoc">
@@ -87,7 +89,14 @@
           <a id="scroll-up" href="#top-anchor" title="Back to top"></a>
         </div>
         <nav>
-          
+          <ul>
+<li><a class="reference internal" href="#">Prerequisites2</a><ul>
+<li><a class="reference internal" href="#build-environment">Build Environment</a></li>
+<li><a class="reference internal" href="#required-software">Required Software</a></li>
+</ul>
+</li>
+</ul>
+
         </nav>
       </div>
     </div>
@@ -112,9 +121,9 @@ Content on this topic
 <div class="toc-tree">
   <html>
   <body><p class="caption" role="heading"><span class="caption-text">Documentation Sections</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="prerequisites.html">Prerequisites</a></li>
-<li class="toctree-l1"><a class="reference internal" href="prerequisites2.html">Prerequisites2</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Prerequisites2</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quick-start.html">Quick Start</a></li>
 <li class="toctree-l1"><a class="reference internal" href="quick-start2.html">Quick Start2</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
@@ -142,12 +151,61 @@ Content on this topic
           
           <div class="body" role="main">
             
+  <section id="prerequisites2">
+<span id="id1"></span><h1>Prerequisites2<a class="headerlink" href="#prerequisites2" title="Link to this heading"></a></h1>
+<hr class="docutils" />
+<section id="build-environment">
+<h2>Build Environment<a class="headerlink" href="#build-environment" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p><strong>Operating System</strong>: Ubuntu 22.04 LTS is recommended. Other Linux distributions or versions may not work as expected.</p></li>
+<li><p><strong>Important</strong>: Windows is not supported.</p></li>
+<li><p><strong>Space Requirements</strong>: At least 10GB of free disk space for building images.</p></li>
+<li><p><strong>Note</strong>: Ensure you clone this repository to a path <strong>without spaces</strong>. Paths with spaces are not supported by debootstrap.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="required-software">
+<h2>Required Software<a class="headerlink" href="#required-software" title="Link to this heading"></a></h2>
+<ol class="arabic">
+<li><p><strong>Docker</strong>:</p>
+<ul class="simple">
+<li><p>Docker version 24.0.6 or compatible is required to build Kuiper images.</p></li>
+<li><p>If you don’t have Docker installed, follow the installation steps at: <a class="icon link reference external" href="https://docs.docker.com/engine/install/" target="_blank">https://docs.docker.com/engine/install/</a></p></li>
+</ul>
+</li>
+<li><p><strong>Cross-Architecture Support</strong>:</p>
+<ul class="simple">
+<li><p>These packages are necessary to build ARM-based images on x86 systems:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">qemu-user-static</span></code>: For emulating ARM architecture</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">binfmt_misc</span></code>: Kernel module to run binaries from different architectures</p></li>
+</ul>
+</li>
+</ul>
+<p>You can install them on Debian/Ubuntu with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt-get<span class="w"> </span>update
+sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>qemu-user-static<span class="w"> </span>binfmt-support
+</pre></div>
+</div>
+<p>To ensure the binfmt_misc module is loaded:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>modprobe<span class="w"> </span>binfmt_misc
+</pre></div>
+</div>
+<p>If using WSL, you may need to enable the service:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>update-binfmts<span class="w"> </span>--enable
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+</section>
+
 
           </div>
               <div class="related">
                 &nbsp;
-    <div></div>
-    <div></div>
+    <a href="prerequisites.html" title="Previous document (Alt+Shift+LeftArrow)" class="prev">Prerequisites</a>
+    <a href="quick-start.html" title="Next document (Alt+Shift+RightArrow)" class="next">Quick Start</a>
               </div>
           
         </div>
