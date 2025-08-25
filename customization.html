@@ -4,17 +4,17 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta content="Kuiper uses multiple package repositories to install and update software. These repositories are configured during the build process in the bootstrap stage." name="description" />
+<meta content="Kuiper allows you to run additional scripts during the build process to customize the resulting image. This feature enables advanced customization beyond the standard configuration options." name="description" />
 
-    <title>Repositories &#8212; Kuiper  documentation</title>
+    <title>Custom Script Integration &#8212; Kuiper  documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8e8a900e" />
     <link rel="stylesheet" type="text/css" href="_static/app.min.css?v=9d1cc31f" />
     <script async="async" src="_static/app.umd.js?v=da3838b9"></script>
     <link rel="icon" href="_static/icon.svg"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Troubleshooting" href="troubleshooting.html" />
-    <link rel="prev" title="Custom Script Integration" href="customization.html" />
+    <link rel="next" title="Repositories" href="repositories.html" />
+    <link rel="prev" title="Stage Reference" href="stage-reference.html" />
    
   
   
@@ -88,10 +88,9 @@
         </div>
         <nav>
           <ul>
-<li><a class="reference internal" href="#">Repositories</a><ul>
-<li><a class="reference internal" href="#adi-repository">ADI Repository</a></li>
-<li><a class="reference internal" href="#raspberry-pi-repository">Raspberry Pi Repository</a></li>
-<li><a class="reference internal" href="#installing-packages">Installing Packages</a></li>
+<li><a class="reference internal" href="#">Custom Script Integration</a><ul>
+<li><a class="reference internal" href="#using-the-example-script">Using the Example Script</a></li>
+<li><a class="reference internal" href="#using-your-own-custom-script">Using Your Own Custom Script</a></li>
 </ul>
 </li>
 </ul>
@@ -134,8 +133,8 @@ Content on this topic
 <p class="caption" role="heading"><span class="caption-text">Advanced Topics</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="stage-reference.html">Stage Reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="customization.html">Custom Script Integration</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Repositories</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Custom Script Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="repositories.html">Repositories</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul>
@@ -156,59 +155,39 @@ Content on this topic
 </div>
           <div class="body" role="main">
             
-  <section id="repositories">
-<span id="id1"></span><h1>Repositories<a class="headerlink" href="#repositories" title="Link to this heading"></a></h1>
-<p>Kuiper uses multiple package repositories to install and update software.
-These repositories are configured during the build process in the bootstrap stage.</p>
+  <section id="custom-script-integration">
+<span id="customization"></span><h1>Custom Script Integration<a class="headerlink" href="#custom-script-integration" title="Link to this heading"></a></h1>
+<p>Kuiper allows you to run additional scripts during the build process to
+customize the resulting image. This feature enables advanced customization
+beyond the standard configuration options.</p>
 <hr class="docutils" />
-<section id="adi-repository">
-<h2>ADI Repository<a class="headerlink" href="#adi-repository" title="Link to this heading"></a></h2>
-<p>The ADI APT repository is a collection of Debian package files that facilitates
-the distribution and installation of Analog Devices software packages. The
-repository contains .deb packages with boot files for carriers and Raspberry Pi.</p>
-<p><strong>Advantages of using the ADI repository:</strong></p>
-<ul class="simple">
-<li><p>Easy installation, removal, and upgrading of packages (<code class="docutils literal notranslate"><span class="pre">apt</span> <span class="pre">install</span></code>, <code class="docutils literal notranslate"><span class="pre">apt</span> <span class="pre">remove</span></code>, <code class="docutils literal notranslate"><span class="pre">apt</span> <span class="pre">upgrade</span></code>)</p></li>
-<li><p>Simplified version management</p></li>
-<li><p>Package manager handles dependency resolution and conflict detection</p></li>
-<li><p>Centralized distribution of ADI-specific packages</p></li>
-</ul>
-<p><strong>Available packages include:</strong></p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">adi-carriers-boot-2022.r2</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">adi-carriers-boot-main</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">adi-rpi-boot-5.15.y</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">adi-rpi-boot-6.1</span></code></p></li>
-</ul>
-</section>
-<hr class="docutils" />
-<section id="raspberry-pi-repository">
-<h2>Raspberry Pi Repository<a class="headerlink" href="#raspberry-pi-repository" title="Link to this heading"></a></h2>
-<p>By default, the Kuiper image includes the official Raspberry Pi package
-repository in <code class="docutils literal notranslate"><span class="pre">/etc/apt/sources.list.d/raspi.list</span></code>. This repository provides
-access to Pi-specific packages and optimizations.</p>
-<p><strong>Using the Raspberry Pi repository:</strong></p>
-<ol class="arabic simple">
-<li><p>Edit <code class="docutils literal notranslate"><span class="pre">/etc/apt/sources.list.d/raspi.list</span></code> and uncomment the first line</p></li>
-<li><p>Update the package lists: <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt</span> <span class="pre">update</span></code></p></li>
-<li><p>Install packages as needed: <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt</span> <span class="pre">install</span> <span class="pre">&lt;package-name&gt;</span></code></p></li>
+<section id="using-the-example-script">
+<h2>Using the Example Script<a class="headerlink" href="#using-the-example-script" title="Link to this heading"></a></h2>
+<p>To use the provided example script:</p>
+<ol class="arabic">
+<li><p>In the <code class="docutils literal notranslate"><span class="pre">config</span></code> file, set the <code class="docutils literal notranslate"><span class="pre">EXTRA_SCRIPT</span></code> variable to:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">EXTRA_SCRIPT</span><span class="o">=</span>stages/07.extra-tweaks/01.extra-scripts/examples/extra-script-example.sh
+</pre></div>
+</div>
+</li>
+<li><p>If you need to pass <code class="docutils literal notranslate"><span class="pre">config</span></code> file parameters to the script, uncomment
+the line where it sources the config file in the example script.</p></li>
+<li><p>Add your custom commands to the example script file.</p></li>
 </ol>
-<p>This gives you access to RPI-specific packages such as GPIO libraries,
-VideoCore tools, and other hardware-specific packages.</p>
 </section>
 <hr class="docutils" />
-<section id="installing-packages">
-<h2>Installing Packages<a class="headerlink" href="#installing-packages" title="Link to this heading"></a></h2>
-<p>To install packages from either repository on your running Kuiper system:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>update
-sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>&lt;package-name&gt;
-</pre></div>
-</div>
-<p>For example, to install Raspberry Pi boot files from the ADI repository:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>update
-sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>adi-rpi-boot-6.1
-</pre></div>
-</div>
+<section id="using-your-own-custom-script">
+<h2>Using Your Own Custom Script<a class="headerlink" href="#using-your-own-custom-script" title="Link to this heading"></a></h2>
+<p>To use your own custom script:</p>
+<ol class="arabic simple">
+<li><p>Place your script file inside the <code class="docutils literal notranslate"><span class="pre">adi-kuiper-gen/stages</span></code> directory.</p></li>
+<li><p>In the <code class="docutils literal notranslate"><span class="pre">config</span></code> file, set the <code class="docutils literal notranslate"><span class="pre">EXTRA_SCRIPT</span></code> variable to the path of
+your script relative to the <code class="docutils literal notranslate"><span class="pre">adi-kuiper-gen</span></code> directory.</p></li>
+<li><p>Make sure your script is executable (<code class="docutils literal notranslate"><span class="pre">chmod</span> <span class="pre">+x</span> <span class="pre">your-script.sh</span></code>).</p></li>
+</ol>
+<p>Custom scripts are executed in the chroot environment of the target system
+during the build process, allowing you to install additional packages, modify
+system files, or perform any other customization.</p>
 </section>
 </section>
 
@@ -216,8 +195,8 @@ sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> <
           </div>
               <div class="related">
                 &nbsp;
-    <a href="customization.html" title="Previous document (Alt+Shift+LeftArrow)" class="prev">Custom Script Integration</a>
-    <a href="troubleshooting.html" title="Next document (Alt+Shift+RightArrow)" class="next">Troubleshooting</a>
+    <a href="stage-reference.html" title="Previous document (Alt+Shift+LeftArrow)" class="prev">Stage Reference</a>
+    <a href="repositories.html" title="Next document (Alt+Shift+RightArrow)" class="next">Repositories</a>
               </div>
           
         </div>

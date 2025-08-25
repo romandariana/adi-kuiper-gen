@@ -4,25 +4,22 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta content="This guide will walk you through building your first Kuiper image with default settings. You’ll have a functional Debian-based image ready for Analog Devices hardware in under an hour." name="description" />
+<meta content="This guide will help you build a basic Kuiper image with default settings." name="description" />
 
     <title>Quick Start &#8212; Kuiper  documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8e8a900e" />
-    <link rel="stylesheet" type="text/css" href="_static/app.min.css?v=33d8ff8e" />
-    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
-    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=a466df2e" />
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
-    <script async="async" src="_static/app.umd.js?v=cd58f2cb"></script>
-    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <link rel="stylesheet" type="text/css" href="_static/app.min.css?v=9d1cc31f" />
+    <script async="async" src="_static/app.umd.js?v=da3838b9"></script>
     <link rel="icon" href="_static/icon.svg"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Quick Start2" href="quick-start2.html" />
-    <link rel="prev" title="Prerequisites2" href="prerequisites2.html" />
+    <link rel="next" title="Using the Generated Image" href="use-image.html" />
+    <link rel="prev" title="Prerequisites" href="prerequisites.html" />
    
   
+  
   <meta name="repository" content="adi-kuiper-gen">
-  <meta name="version" content="">
+  <meta name="version" content="latest">
   
     <meta name="page_source_suffix" content=".rst">
   
@@ -66,7 +63,9 @@
       <span>
         <a id="logo-org" href="https://analog.com" aria-label="Analog Devices Inc. landing page"></a>
         <div class="vertical-divider"></div>
+        
         <label id="show-repotoc" for="input-show-repotoc" title="Show/hide docs" tabindex="0">Docs</label>
+        
         <a id="logo" href="index.html">
           <div>Kuiper</div>
         </a>
@@ -84,30 +83,16 @@
   </div>
     <div class="localtoc">
       <div class="tocwrapper">
-        <div>
-          <div class="localtoc-header"></div>
+        <div class="header localtoc-header">
           <a id="scroll-up" href="#top-anchor" title="Back to top"></a>
         </div>
         <nav>
           <ul>
 <li><a class="reference internal" href="#">Quick Start</a><ul>
-<li><a class="reference internal" href="#before-you-begin">Before You Begin</a></li>
-<li><a class="reference internal" href="#step-1-clone-the-repository">Step 1: Clone the Repository</a></li>
-<li><a class="reference internal" href="#step-2-review-default-configuration">Step 2: Review Default Configuration</a></li>
-<li><a class="reference internal" href="#step-3-start-the-build">Step 3: Start the Build</a><ul>
-<li><a class="reference internal" href="#build-progress-monitoring">Build Progress Monitoring</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#step-4-locate-your-image">Step 4: Locate Your Image</a><ul>
-<li><a class="reference internal" href="#build-artifacts">Build Artifacts</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#step-5-prepare-sd-card">Step 5: Prepare SD Card</a></li>
-<li><a class="reference internal" href="#step-6-boot-your-device">Step 6: Boot Your Device</a><ul>
-<li><a class="reference internal" href="#quick-verification">Quick Verification</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#troubleshooting-quick-start">Troubleshooting Quick Start</a></li>
+<li><a class="reference internal" href="#clone-the-repository">1. Clone the Repository</a></li>
+<li><a class="reference internal" href="#review-default-configuration">2. Review Default Configuration</a></li>
+<li><a class="reference internal" href="#build-the-image">3. Build the Image</a></li>
+<li><a class="reference internal" href="#locate-the-output">4. Locate the Output</a></li>
 <li><a class="reference internal" href="#next-steps">Next Steps</a></li>
 </ul>
 </li>
@@ -121,8 +106,8 @@
       <div class="sphinxsidebar" role="navigation" aria-label="Main">
         <div class="sphinxsidebarwrapper">
     <a id="logo" href="index.html">
-      <img class="only-light" src="_static/HDL_logo_cropped.svg"/>
-      <img class="only-dark" src="_static/HDL_logo_w_cropped.svg"/>
+      <img class="only-light" src="_static/logo.svg"/>
+      <img class="only-dark" src="_static/logo.svg"/>
     </a><input id="input-switch-toc" type="checkbox">
 <label id="show-repotoc" for="input-switch-toc">
 All content
@@ -136,23 +121,27 @@ Content on this topic
 </div>
 <div class="toc-tree">
   <html>
-  <body><p class="caption" role="heading"><span class="caption-text">Documentation Sections</span></p>
+  <body><p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="prerequisites.html">Prerequisites</a></li>
-<li class="toctree-l1"><a class="reference internal" href="prerequisites2.html">Prerequisites2</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Quick Start</a></li>
-<li class="toctree-l1"><a class="reference internal" href="quick-start2.html">Quick Start2</a></li>
-<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="build-flow.html">Build Flow</a></li>
 <li class="toctree-l1"><a class="reference internal" href="use-image.html">Using the Generated Image</a></li>
-<li class="toctree-l1"><a class="reference internal" href="repositories.html">Repositories</a></li>
-<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
 </ul>
-<p class="caption" role="heading"><span class="caption-text">Quick Reference</span></p>
+<p class="caption" role="heading"><span class="caption-text">Configuration &amp; Building</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference external" href="https://github.com/analogdevicesinc/adi-kuiper-gen">GitHub Repository</a></li>
-<li class="toctree-l1"><a class="reference external" href="https://github.com/analogdevicesinc/adi-kuiper-gen/issues">Issue Tracker</a></li>
-<li class="toctree-l1"><a class="reference external" href="https://ez.analog.com">ADI Engineer Zone</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="kuiper-versions.html">Kuiper Versions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="build-flow.html">Build Flow</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Advanced Topics</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="stage-reference.html">Stage Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="customization.html">Custom Script Integration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="repositories.html">Repositories</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
 </ul>
 </body>
 </html>
@@ -164,565 +153,68 @@ Content on this topic
   <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper" id="top-anchor">
-          
+          <div class="body-header">
+  <nav class="breadcrumb empty"><ol></ol></nav>
+</div>
           <div class="body" role="main">
             
   <section id="quick-start">
 <span id="id1"></span><h1>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading"></a></h1>
-<p>This guide will walk you through building your first Kuiper image with default
-settings. You’ll have a functional Debian-based image ready for Analog Devices
-hardware in under an hour.</p>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p><strong>First time building?</strong> The default configuration creates a basic but
-fully functional image perfect for getting started. You can always
-customize later!</p>
-</div>
+<p>This guide will help you build a basic Kuiper image with default settings.</p>
 <hr class="docutils" />
-<section id="before-you-begin">
-<h2>Before You Begin<a class="headerlink" href="#before-you-begin" title="Link to this heading"></a></h2>
-<p>Ensure you’ve completed all the prerequisites:</p>
-<div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
-<div class="sd-row sd-row-cols-1 sd-row-cols-xs-1 sd-row-cols-sm-3 sd-row-cols-md-3 sd-row-cols-lg-3 sd-g-2 sd-g-xs-2 sd-g-sm-2 sd-g-md-2 sd-g-lg-2 docutils">
-<div class="sd-col sd-d-flex-row docutils">
-<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm docutils">
-<div class="sd-card-body docutils">
-<div class="sd-card-title sd-font-weight-bold docutils">
-✅ <strong>Ubuntu 22.04 LTS</strong></div>
-<p class="sd-card-text">Recommended host OS</p>
-</div>
-</div>
-</div>
-<div class="sd-col sd-d-flex-row docutils">
-<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm docutils">
-<div class="sd-card-body docutils">
-<div class="sd-card-title sd-font-weight-bold docutils">
-✅ <strong>Docker 24.0.6+</strong></div>
-<p class="sd-card-text">Container runtime</p>
-</div>
-</div>
-</div>
-<div class="sd-col sd-d-flex-row docutils">
-<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm docutils">
-<div class="sd-card-body docutils">
-<div class="sd-card-title sd-font-weight-bold docutils">
-✅ <strong>10GB+ free space</strong></div>
-<p class="sd-card-text">For build artifacts</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-<p>Haven’t set up your environment yet? <a class="reference internal" href="prerequisites.html"><span class="doc">Check the prerequisites</span></a> first.</p>
-</section>
-<hr class="docutils" />
-<section id="step-1-clone-the-repository">
-<h2>Step 1: Clone the Repository<a class="headerlink" href="#step-1-clone-the-repository" title="Link to this heading"></a></h2>
-<p>Start by cloning the Kuiper build system to your local machine:</p>
-<div class="literal-block-wrapper docutils container" id="id2">
-<div class="code-block-caption"><span class="caption-text">Clone the repository</span><a class="headerlink" href="#id2" title="Link to this code"></a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Clone with minimal history for faster download</span>
-git<span class="w"> </span>clone<span class="w"> </span>--depth<span class="w"> </span><span class="m">1</span><span class="w"> </span>https://github.com/analogdevicesinc/adi-kuiper-gen
+<section id="clone-the-repository">
+<h2>1. Clone the Repository<a class="headerlink" href="#clone-the-repository" title="Link to this heading"></a></h2>
+<p>After ensuring your build environment meets the <a class="reference internal" href="prerequisites.html"><span class="doc">prerequisites</span></a>, clone the repository:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>--depth<span class="w"> </span><span class="m">1</span><span class="w"> </span>https://github.com/analogdevicesinc/adi-kuiper-gen
 <span class="nb">cd</span><span class="w"> </span>adi-kuiper-gen
 </pre></div>
 </div>
-</div>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p><strong>Path Requirements</strong></p>
-<p>Ensure your clone path contains <strong>no spaces</strong>. Paths with spaces will
-cause the build to fail.</p>
+</section>
+<hr class="docutils" />
+<section id="review-default-configuration">
+<h2>2. Review Default Configuration<a class="headerlink" href="#review-default-configuration" title="Link to this heading"></a></h2>
+<p>The default configuration will build a basic 32-bit (armhf) Debian Bookworm image with Raspberry Pi boot files. For most users, this is sufficient to get started:</p>
 <ul class="simple">
-<li><p>✅ Good: <code class="docutils literal notranslate"><span class="pre">/home/user/adi-kuiper-gen</span></code></p></li>
-<li><p>❌ Bad: <code class="docutils literal notranslate"><span class="pre">/home/user/my</span> <span class="pre">projects/adi-kuiper-gen</span></code></p></li>
+<li><p>Target architecture: <code class="docutils literal notranslate"><span class="pre">armhf</span></code> (32-bit)</p></li>
+<li><p>Debian version: <code class="docutils literal notranslate"><span class="pre">bookworm</span></code></p></li>
+<li><p>Essential boot files included: Yes</p></li>
+<li><p>Desktop environment: No</p></li>
+<li><p>ADI tools: None (can be enabled as needed)</p></li>
 </ul>
-</div>
+<p>This configuration creates what we call the “Basic Image” that includes only essential components. For details on exactly what stages and components are included in this basic build, see the Basic Image section under Kuiper Versions.</p>
+<p>For customization options, see the <a class="reference internal" href="configuration.html"><span class="doc">Configuration</span></a> section.</p>
 </section>
 <hr class="docutils" />
-<section id="step-2-review-default-configuration">
-<h2>Step 2: Review Default Configuration<a class="headerlink" href="#step-2-review-default-configuration" title="Link to this heading"></a></h2>
-<p>The default configuration provides a minimal but functional Kuiper image:</p>
-<div class="sd-tab-set docutils">
-<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
-<label class="sd-tab-label" for="sd-tab-item-0">
-What’s Included</label><div class="sd-tab-content docutils">
-<div class="table-wrapper bold-header docutils container">
-<table class="bold-header docutils align-default">
-<thead>
-<tr class="row-odd"><th class="head"><p>Component</p></th>
-<th class="head"><p>Status</p></th>
-<th class="head"><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><strong>Base System</strong></p></td>
-<td><p>✅ Included</p></td>
-<td><p>Debian Bookworm, essential packages</p></td>
-</tr>
-<tr class="row-odd"><td><p><strong>User Account</strong></p></td>
-<td><p>✅ Included</p></td>
-<td><p>User ‘analog’ with sudo access</p></td>
-</tr>
-<tr class="row-even"><td><p><strong>SSH Server</strong></p></td>
-<td><p>✅ Included</p></td>
-<td><p>Remote access enabled</p></td>
-</tr>
-<tr class="row-odd"><td><p><strong>Raspberry Pi Boot</strong></p></td>
-<td><p>✅ Included</p></td>
-<td><p>Boot files for RPi 4/5</p></td>
-</tr>
-<tr class="row-even"><td><p><strong>Desktop Environment</strong></p></td>
-<td><p>❌ Not included</p></td>
-<td><p>Command-line only</p></td>
-</tr>
-<tr class="row-odd"><td><p><strong>ADI Tools</strong></p></td>
-<td><p>❌ Not included</p></td>
-<td><p>Can be added later</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
-<label class="sd-tab-label" for="sd-tab-item-1">
-Configuration Details</label><div class="sd-tab-content docutils">
-<p>The default <code class="docutils literal notranslate"><span class="pre">config</span></code> file contains:</p>
-<div class="literal-block-wrapper docutils container" id="id3">
-<div class="code-block-caption"><span class="caption-text">Default configuration settings</span><a class="headerlink" href="#id3" title="Link to this code"></a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># System Configuration</span>
-<span class="nv">TARGET_ARCHITECTURE</span><span class="o">=</span>armhf<span class="w">          </span><span class="c1"># 32-bit ARM</span>
-<span class="nv">DEBIAN_VERSION</span><span class="o">=</span>bookworm<span class="w">           </span><span class="c1"># Debian 12</span>
-
-<span class="c1"># Build Options</span>
-<span class="nv">PRESERVE_CONTAINER</span><span class="o">=</span>n<span class="w">              </span><span class="c1"># Clean up after build</span>
-<span class="nv">EXPORT_SOURCES</span><span class="o">=</span>n<span class="w">                  </span><span class="c1"># Don&#39;t download source</span>
-
-<span class="c1"># Features (all disabled by default)</span>
-<span class="nv">CONFIG_DESKTOP</span><span class="o">=</span>n<span class="w">                  </span><span class="c1"># No GUI</span>
-<span class="nv">CONFIG_LIBIIO</span><span class="o">=</span>n<span class="w">                   </span><span class="c1"># No ADI libraries</span>
-<span class="nv">CONFIG_PYADI</span><span class="o">=</span>n<span class="w">                    </span><span class="c1"># No Python bindings</span>
-
-<span class="c1"># Boot Files (enabled by default)</span>
-<span class="nv">CONFIG_RPI_BOOT_FILES</span><span class="o">=</span>y<span class="w">           </span><span class="c1"># Raspberry Pi support</span>
-<span class="nv">CONFIG_XILINX_INTEL_BOOT_FILES</span><span class="o">=</span>y<span class="w">  </span><span class="c1"># Carrier board support</span>
-</pre></div>
-</div>
-</div>
-</div>
-<input id="sd-tab-item-2" name="sd-tab-set-0" type="radio">
-<label class="sd-tab-label" for="sd-tab-item-2">
-Customization Options</label><div class="sd-tab-content docutils">
-<p>Want to customize before building? Common modifications:</p>
-<p><strong>Enable Desktop Environment:</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">CONFIG_DESKTOP</span><span class="o">=</span>y
-</pre></div>
-</div>
-<p><strong>Add ADI Tools:</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">CONFIG_LIBIIO</span><span class="o">=</span>y
-<span class="nv">CONFIG_IIO_OSCILLOSCOPE</span><span class="o">=</span>y
-</pre></div>
-</div>
-<p><strong>Switch to 64-bit:</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">TARGET_ARCHITECTURE</span><span class="o">=</span>arm64
-</pre></div>
-</div>
-<p>For complete options, see the <a class="reference internal" href="configuration.html"><span class="doc">configuration guide</span></a>.</p>
-</div>
-</div>
-</section>
-<hr class="docutils" />
-<section id="step-3-start-the-build">
-<h2>Step 3: Start the Build<a class="headerlink" href="#step-3-start-the-build" title="Link to this heading"></a></h2>
-<p>Launch the build process with a single command:</p>
-<div class="literal-block-wrapper docutils container" id="id4">
-<div class="code-block-caption"><span class="caption-text">Build your Kuiper image</span><a class="headerlink" href="#id4" title="Link to this code"></a></div>
+<section id="build-the-image">
+<h2>3. Build the Image<a class="headerlink" href="#build-the-image" title="Link to this heading"></a></h2>
+<p>Run the build script with sudo:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>./build-docker.sh
 </pre></div>
 </div>
-</div>
-<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
-<summary class="sd-summary-title sd-card-header sd-bg-info sd-bg-text-info">
-<span class="sd-summary-text">What happens during the build?</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
-<p class="sd-card-text">The build process follows these stages:</p>
+<p>The build process will:</p>
 <ol class="arabic simple">
-<li><p class="sd-card-text"><strong>Docker Setup</strong> (2-3 minutes)</p>
-<ul class="simple">
-<li><p class="sd-card-text">Downloads base Debian image</p></li>
-<li><p class="sd-card-text">Installs build dependencies</p></li>
-<li><p class="sd-card-text">Creates build container</p></li>
-</ul>
-</li>
-<li><p class="sd-card-text"><strong>System Bootstrap</strong> (5-10 minutes)</p>
-<ul class="simple">
-<li><p class="sd-card-text">Creates minimal Debian filesystem</p></li>
-<li><p class="sd-card-text">Configures package repositories</p></li>
-<li><p class="sd-card-text">Sets up basic system structure</p></li>
-</ul>
-</li>
-<li><p class="sd-card-text"><strong>Configuration</strong> (10-15 minutes)</p>
-<ul class="simple">
-<li><p class="sd-card-text">Creates users and passwords</p></li>
-<li><p class="sd-card-text">Configures networking and SSH</p></li>
-<li><p class="sd-card-text">Sets up locale and timezone</p></li>
-</ul>
-</li>
-<li><p class="sd-card-text"><strong>Boot Preparation</strong> (5-10 minutes)</p>
-<ul class="simple">
-<li><p class="sd-card-text">Installs boot files for target hardware</p></li>
-<li><p class="sd-card-text">Configures filesystem table</p></li>
-<li><p class="sd-card-text">Prepares kernel and device trees</p></li>
-</ul>
-</li>
-<li><p class="sd-card-text"><strong>Image Creation</strong> (10-15 minutes)</p>
-<ul class="simple">
-<li><p class="sd-card-text">Creates disk image with proper partitions</p></li>
-<li><p class="sd-card-text">Copies all files to image</p></li>
-<li><p class="sd-card-text">Compresses final output</p></li>
-</ul>
-</li>
+<li><p>Create a Docker container with the necessary build environment</p></li>
+<li><p>Set up a minimal Debian system</p></li>
+<li><p>Configure system settings</p></li>
+<li><p>Install selected components based on your configuration</p></li>
+<li><p>Create a bootable image</p></li>
 </ol>
-<p class="sd-card-text"><strong>Total time:</strong> 30-60 minutes depending on your system and internet speed.</p>
-</div>
-</details><section id="build-progress-monitoring">
-<h3>Build Progress Monitoring<a class="headerlink" href="#build-progress-monitoring" title="Link to this heading"></a></h3>
-<p>Monitor the build progress with these indicators:</p>
-<div class="table-wrapper bold-header docutils container">
-<table class="bold-header docutils align-default">
-<thead>
-<tr class="row-odd"><th class="head"><p>Stage Message</p></th>
-<th class="head"><p>What’s Happening</p></th>
-<th class="head"><p>Typical Duration</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Start</span> <span class="pre">stage</span> <span class="pre">01.bootstrap</span></code></p></td>
-<td><p>Creating base filesystem</p></td>
-<td><p>5-10 minutes</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Start</span> <span class="pre">stage</span> <span class="pre">02.set-locale-and-timezone</span></code></p></td>
-<td><p>System localization</p></td>
-<td><p>2-3 minutes</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Start</span> <span class="pre">stage</span> <span class="pre">03.system-tweaks</span></code></p></td>
-<td><p>User and network setup</p></td>
-<td><p>3-5 minutes</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Start</span> <span class="pre">stage</span> <span class="pre">06.boot-partition</span></code></p></td>
-<td><p>Installing boot files</p></td>
-<td><p>5-10 minutes</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Start</span> <span class="pre">stage</span> <span class="pre">08.export-stage</span></code></p></td>
-<td><p>Creating final image</p></td>
-<td><p>10-15 minutes</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p><strong>Patience is key!</strong> The first build downloads many packages and can take
-time. Subsequent builds with similar configurations will be much faster
-due to Docker layer caching.</p>
-</div>
-</section>
+<p>This process typically takes 30-60 minutes depending on your system and internet speed.</p>
 </section>
 <hr class="docutils" />
-<section id="step-4-locate-your-image">
-<h2>Step 4: Locate Your Image<a class="headerlink" href="#step-4-locate-your-image" title="Link to this heading"></a></h2>
-<p>After a successful build, find your new Kuiper image:</p>
-<div class="literal-block-wrapper docutils container" id="id5">
-<div class="code-block-caption"><span class="caption-text">Navigate to output directory</span><a class="headerlink" href="#id5" title="Link to this code"></a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>kuiper-volume
-ls<span class="w"> </span>-la<span class="w"> </span>*.zip
-</pre></div>
-</div>
-</div>
-<p>You’ll see a file named:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>image_YYYY-MM-DD-ADI-Kuiper-Linux-armhf.zip
-</pre></div>
-</div>
-<p>Where <code class="docutils literal notranslate"><span class="pre">YYYY-MM-DD</span></code> is today’s date and <code class="docutils literal notranslate"><span class="pre">armhf</span></code> is the architecture.</p>
-<section id="build-artifacts">
-<h3>Build Artifacts<a class="headerlink" href="#build-artifacts" title="Link to this heading"></a></h3>
-<p>The <code class="docutils literal notranslate"><span class="pre">kuiper-volume</span></code> directory contains several useful files:</p>
-<div class="table-wrapper bold-header docutils container">
-<table class="bold-header docutils align-default">
-<thead>
-<tr class="row-odd"><th class="head"><p>File/Directory</p></th>
-<th class="head"><p>Description</p></th>
-<th class="head"><p>Use Case</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">image_*.zip</span></code></p></td>
-<td><p><strong>Your Kuiper image</strong> (main output)</p></td>
-<td><p>Flash to SD card</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">build.log</span></code></p></td>
-<td><p>Complete build log with timestamps</p></td>
-<td><p>Troubleshooting builds</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ADI_repos_git_info.txt</span></code></p></td>
-<td><p>Git information for all ADI repositories</p></td>
-<td><p>Version tracking</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">licensing/</span></code></p></td>
-<td><p>License files for all included software</p></td>
-<td><p>Compliance documentation</p></td>
-</tr>
-</tbody>
-</table>
-</div>
+<section id="locate-the-output">
+<h2>4. Locate the Output<a class="headerlink" href="#locate-the-output" title="Link to this heading"></a></h2>
+<p>After a successful build, your Kuiper image will be available as a zip file in the <code class="docutils literal notranslate"><span class="pre">kuiper-volume/</span></code> directory within the repository. The filename will follow the pattern <code class="docutils literal notranslate"><span class="pre">image_YYYY-MM-DD-ADI-Kuiper-Linux-[arch].zip</span></code>.</p>
 </section>
-</section>
-<hr class="docutils" />
-<section id="step-5-prepare-sd-card">
-<h2>Step 5: Prepare SD Card<a class="headerlink" href="#step-5-prepare-sd-card" title="Link to this heading"></a></h2>
-<p>Extract and write your image to an SD card:</p>
-<div class="sd-tab-set docutils">
-<input checked="checked" id="sd-tab-item-3" name="sd-tab-set-1" type="radio">
-<label class="sd-tab-label" for="sd-tab-item-3">
-Extract Image</label><div class="sd-tab-content docutils">
-<div class="literal-block-wrapper docutils container" id="id6">
-<div class="code-block-caption"><span class="caption-text">Extract the image file</span><a class="headerlink" href="#id6" title="Link to this code"></a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Extract the zip file</span>
-unzip<span class="w"> </span>image_*-ADI-Kuiper-Linux-*.zip
-
-<span class="c1"># Verify extraction</span>
-ls<span class="w"> </span>-lh<span class="w"> </span>*.img
-</pre></div>
-</div>
-</div>
-</div>
-<input id="sd-tab-item-4" name="sd-tab-set-1" type="radio">
-<label class="sd-tab-label" for="sd-tab-item-4">
-Using Balena Etcher (Recommended)</label><div class="sd-tab-content docutils">
-<p><strong>Download:</strong> <a class="icon link reference external" href="https://www.balena.io/etcher/" target="_blank">https://www.balena.io/etcher/</a></p>
-<ol class="arabic simple">
-<li><p>Launch Balena Etcher</p></li>
-<li><p>Click “Flash from file”</p></li>
-<li><p>Select your extracted <code class="docutils literal notranslate"><span class="pre">.img</span></code> file</p></li>
-<li><p>Select your SD card (8GB+ recommended)</p></li>
-<li><p>Click “Flash”</p></li>
-</ol>
-</div>
-<input id="sd-tab-item-5" name="sd-tab-set-1" type="radio">
-<label class="sd-tab-label" for="sd-tab-item-5">
-Using Command Line</label><div class="sd-tab-content docutils">
-<div class="literal-block-wrapper docutils container" id="id7">
-<div class="code-block-caption"><span class="caption-text">Write image using dd (Linux)</span><a class="headerlink" href="#id7" title="Link to this code"></a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Find your SD card device</span>
-sudo<span class="w"> </span>fdisk<span class="w"> </span>-l
-
-<span class="c1"># Unmount if auto-mounted</span>
-sudo<span class="w"> </span>umount<span class="w"> </span>/dev/sdX*
-
-<span class="c1"># Write image (replace sdX with your device)</span>
-sudo<span class="w"> </span>dd<span class="w"> </span><span class="k">if</span><span class="o">=</span>image_*-ADI-Kuiper-Linux-*.img<span class="w"> </span><span class="nv">of</span><span class="o">=</span>/dev/sdX<span class="w"> </span><span class="nv">bs</span><span class="o">=</span>4M<span class="w"> </span><span class="nv">status</span><span class="o">=</span>progress<span class="w"> </span><span class="nv">conv</span><span class="o">=</span>fsync
-
-<span class="c1"># Ensure data is written</span>
-sync
-</pre></div>
-</div>
-</div>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p><strong>Double-check device name!</strong> Writing to the wrong device can
-destroy data. Your SD card is typically <code class="docutils literal notranslate"><span class="pre">/dev/sdX</span></code> or <code class="docutils literal notranslate"><span class="pre">/dev/mmcblkX</span></code>.</p>
-</div>
-</div>
-</div>
-</section>
-<hr class="docutils" />
-<section id="step-6-boot-your-device">
-<h2>Step 6: Boot Your Device<a class="headerlink" href="#step-6-boot-your-device" title="Link to this heading"></a></h2>
-<div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
-<div class="sd-row sd-row-cols-1 sd-row-cols-xs-1 sd-row-cols-sm-2 sd-row-cols-md-2 sd-row-cols-lg-2 sd-g-3 sd-g-xs-3 sd-g-sm-3 sd-g-md-3 sd-g-lg-3 docutils">
-<div class="sd-col sd-d-flex-row docutils">
-<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm docutils">
-<div class="sd-card-body docutils">
-<div class="sd-card-title sd-font-weight-bold docutils">
-🔌 <strong>Hardware Setup</strong></div>
-<ol class="arabic simple">
-<li><p class="sd-card-text">Insert SD card into target device</p></li>
-<li><p class="sd-card-text">Connect ethernet cable (if available)</p></li>
-<li><p class="sd-card-text">Connect display and keyboard (optional)</p></li>
-<li><p class="sd-card-text">Power on the device</p></li>
-</ol>
-</div>
-</div>
-</div>
-<div class="sd-col sd-d-flex-row docutils">
-<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm docutils">
-<div class="sd-card-body docutils">
-<div class="sd-card-title sd-font-weight-bold docutils">
-⏱️ <strong>First Boot</strong></div>
-<ul class="simple">
-<li><p class="sd-card-text">Initial boot takes 2-3 minutes</p></li>
-<li><p class="sd-card-text">Root partition auto-expands to full SD card</p></li>
-<li><p class="sd-card-text">System shows login prompt when ready</p></li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sd-col sd-d-flex-row docutils">
-<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm docutils">
-<div class="sd-card-body docutils">
-<div class="sd-card-title sd-font-weight-bold docutils">
-🔐 <strong>Login Credentials</strong></div>
-<ul class="simple">
-<li><p class="sd-card-text"><strong>Username:</strong> <code class="docutils literal notranslate"><span class="pre">analog</span></code></p></li>
-<li><p class="sd-card-text"><strong>Password:</strong> <code class="docutils literal notranslate"><span class="pre">analog</span></code></p></li>
-<li><p class="sd-card-text"><strong>Root access:</strong> <code class="docutils literal notranslate"><span class="pre">sudo</span></code> or direct root login</p></li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sd-col sd-d-flex-row docutils">
-<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm docutils">
-<div class="sd-card-body docutils">
-<div class="sd-card-title sd-font-weight-bold docutils">
-🌐 <strong>Network Access</strong></div>
-<ul class="simple">
-<li><p class="sd-card-text">Ethernet: Automatic DHCP</p></li>
-<li><p class="sd-card-text">WiFi: Use <code class="docutils literal notranslate"><span class="pre">nmtui</span></code> to configure</p></li>
-<li><p class="sd-card-text">SSH: Enabled by default</p></li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-</div>
-<section id="quick-verification">
-<h3>Quick Verification<a class="headerlink" href="#quick-verification" title="Link to this heading"></a></h3>
-<p>Verify your Kuiper system is working properly:</p>
-<div class="literal-block-wrapper docutils container" id="id8">
-<div class="code-block-caption"><span class="caption-text">System verification commands</span><a class="headerlink" href="#id8" title="Link to this code"></a></div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check system information</span>
-cat<span class="w"> </span>/etc/os-release
-uname<span class="w"> </span>-a
-
-<span class="c1"># Verify network connectivity</span>
-ip<span class="w"> </span>addr<span class="w"> </span>show
-ping<span class="w"> </span>-c<span class="w"> </span><span class="m">3</span><span class="w"> </span>google.com
-
-<span class="c1"># Check available disk space</span>
-df<span class="w"> </span>-h
-</pre></div>
-</div>
-</div>
-<p>Expected output shows Debian 12 (Bookworm) with kernel optimized for your
-target hardware.</p>
-</section>
-</section>
-<hr class="docutils" />
-<section id="troubleshooting-quick-start">
-<h2>Troubleshooting Quick Start<a class="headerlink" href="#troubleshooting-quick-start" title="Link to this heading"></a></h2>
-<details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
-<summary class="sd-summary-title sd-card-header sd-bg-warning sd-bg-text-warning">
-<span class="sd-summary-text">Build fails with “permission denied”</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
-<p class="sd-card-text"><strong>Problem:</strong> Docker access issues</p>
-<p class="sd-card-text"><strong>Solution:</strong> Ensure you’re using <code class="docutils literal notranslate"><span class="pre">sudo</span></code>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>./build-docker.sh
-</pre></div>
-</div>
-</div>
-</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
-<summary class="sd-summary-title sd-card-header sd-bg-warning sd-bg-text-warning">
-<span class="sd-summary-text">“No space left on device” during build</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
-<p class="sd-card-text"><strong>Problem:</strong> Insufficient disk space</p>
-<p class="sd-card-text"><strong>Solutions:</strong></p>
-<ul class="simple">
-<li><p class="sd-card-text">Check available space: <code class="docutils literal notranslate"><span class="pre">df</span> <span class="pre">-h</span></code></p></li>
-<li><p class="sd-card-text">Clean Docker cache: <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">docker</span> <span class="pre">system</span> <span class="pre">prune</span> <span class="pre">-a</span></code></p></li>
-<li><p class="sd-card-text">Free up at least 15GB</p></li>
-</ul>
-</div>
-</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
-<summary class="sd-summary-title sd-card-header sd-bg-warning sd-bg-text-warning">
-<span class="sd-summary-text">SD card not booting</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
-<p class="sd-card-text"><strong>Problem:</strong> Image writing or hardware issues</p>
-<p class="sd-card-text"><strong>Troubleshooting steps:</strong></p>
-<ol class="arabic simple">
-<li><p class="sd-card-text">Verify image integrity: <code class="docutils literal notranslate"><span class="pre">md5sum</span> <span class="pre">image_*.img</span></code></p></li>
-<li><p class="sd-card-text">Try a different SD card (8GB+, Class 10)</p></li>
-<li><p class="sd-card-text">Re-flash with different tool</p></li>
-<li><p class="sd-card-text">Check target hardware compatibility</p></li>
-</ol>
-</div>
-</details><details class="sd-sphinx-override sd-dropdown sd-card sd-mb-3">
-<summary class="sd-summary-title sd-card-header sd-bg-warning sd-bg-text-warning">
-<span class="sd-summary-text">Cannot connect via SSH</span><span class="sd-summary-state-marker sd-summary-chevron-right"><svg version="1.1" width="1.5em" height="1.5em" class="sd-octicon sd-octicon-chevron-right" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.72 18.78a.75.75 0 0 1 0-1.06L14.44 12 8.72 6.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018l6.25 6.25a.75.75 0 0 1 0 1.06l-6.25 6.25a.75.75 0 0 1-1.06 0Z"></path></svg></span></summary><div class="sd-summary-content sd-card-body docutils">
-<p class="sd-card-text"><strong>Problem:</strong> Network or SSH configuration</p>
-<p class="sd-card-text"><strong>Solutions:</strong></p>
-<ol class="arabic simple">
-<li><p class="sd-card-text">Find device IP: Check router admin or use <code class="docutils literal notranslate"><span class="pre">nmap</span></code></p></li>
-<li><p class="sd-card-text">Verify SSH is running: <code class="docutils literal notranslate"><span class="pre">systemctl</span> <span class="pre">status</span> <span class="pre">ssh</span></code></p></li>
-<li><p class="sd-card-text">Try direct console access first</p></li>
-<li><p class="sd-card-text">Check firewall settings</p></li>
-</ol>
-</div>
-</details></section>
 <hr class="docutils" />
 <section id="next-steps">
 <h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading"></a></h2>
-<p>Congratulations! You’ve successfully built and deployed your first Kuiper image.</p>
-<div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
-<div class="sd-row sd-row-cols-1 sd-row-cols-xs-1 sd-row-cols-sm-2 sd-row-cols-md-2 sd-row-cols-lg-2 sd-g-3 sd-g-xs-3 sd-g-sm-3 sd-g-md-3 sd-g-lg-3 docutils">
-<div class="sd-col sd-d-flex-row docutils">
-<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">
-<div class="sd-card-body docutils">
-<div class="sd-card-title sd-font-weight-bold docutils">
-🔧 <strong>Customize Your Build</strong></div>
-<p class="sd-card-text">Add desktop environment, ADI tools, or configure for specific
-hardware platforms.</p>
-</div>
-<a class="sd-stretched-link sd-hide-link-text reference internal" href="configuration.html"><span class="doc">Configuration</span></a></div>
-</div>
-<div class="sd-col sd-d-flex-row docutils">
-<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">
-<div class="sd-card-body docutils">
-<div class="sd-card-title sd-font-weight-bold docutils">
-📚 <strong>Understanding the Build</strong></div>
-<p class="sd-card-text">Learn how the build process works and how to modify or extend
-the build stages.</p>
-</div>
-<a class="sd-stretched-link sd-hide-link-text reference internal" href="build-flow.html"><span class="doc">Build Flow</span></a></div>
-</div>
-<div class="sd-col sd-d-flex-row docutils">
-<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">
-<div class="sd-card-body docutils">
-<div class="sd-card-title sd-font-weight-bold docutils">
-🛠️ <strong>Advanced Topics</strong></div>
-<p class="sd-card-text">Explore custom scripts, cross-compilation, and advanced
-configuration options.</p>
-</div>
-<a class="sd-stretched-link sd-hide-link-text reference internal" href="configuration.html"><span class="doc">Configuration</span></a></div>
-</div>
-<div class="sd-col sd-d-flex-row docutils">
-<div class="sd-card sd-sphinx-override sd-w-100 sd-shadow-sm sd-card-hover docutils">
-<div class="sd-card-body docutils">
-<div class="sd-card-title sd-font-weight-bold docutils">
-❓ <strong>Get Help</strong></div>
-<p class="sd-card-text">Find solutions to common issues or get help with advanced
-configurations.</p>
-</div>
-<a class="sd-stretched-link sd-hide-link-text reference internal" href="troubleshooting.html"><span class="doc">Troubleshooting</span></a></div>
-</div>
-</div>
-</div>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p><strong>Development Workflow</strong></p>
-<p>For iterative development:</p>
-<ol class="arabic simple">
-<li><p>Make configuration changes</p></li>
-<li><p>Rebuild: <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">./build-docker.sh</span></code></p></li>
-<li><p>Test on target hardware</p></li>
-<li><p>Repeat as needed</p></li>
-</ol>
-<p>Docker caching makes subsequent builds much faster!</p>
-</div>
+<ul class="simple">
+<li><p>To write the image to an SD card and boot your device, see the <a class="reference internal" href="use-image.html"><span class="doc">Using the Generated Image</span></a> section</p></li>
+<li><p>To customize your build with additional tools or settings, see the <a class="reference internal" href="configuration.html"><span class="doc">Configuration</span></a> section</p></li>
+<li><p>To understand how the build process works, see the <a class="reference internal" href="build-flow.html"><span class="doc">Build Flow</span></a> section</p></li>
+<li><p>For troubleshooting build issues, see the <a class="reference internal" href="troubleshooting.html"><span class="doc">Troubleshooting</span></a> section</p></li>
+</ul>
 </section>
 </section>
 
@@ -730,8 +222,8 @@ configurations.</p>
           </div>
               <div class="related">
                 &nbsp;
-    <a href="prerequisites2.html" title="Previous document (Alt+Shift+LeftArrow)" class="prev">Prerequisites2</a>
-    <a href="quick-start2.html" title="Next document (Alt+Shift+RightArrow)" class="next">Quick Start2</a>
+    <a href="prerequisites.html" title="Previous document (Alt+Shift+LeftArrow)" class="prev">Prerequisites</a>
+    <a href="use-image.html" title="Next document (Alt+Shift+RightArrow)" class="next">Using the Generated Image</a>
               </div>
           
         </div>

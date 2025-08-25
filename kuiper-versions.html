@@ -4,17 +4,17 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta content="Kuiper uses multiple package repositories to install and update software. These repositories are configured during the build process in the bootstrap stage." name="description" />
+<meta content="Depending on your configuration choices, different combinations of build stages and substages will be included. Here are the common build configurations:" name="description" />
 
-    <title>Repositories &#8212; Kuiper  documentation</title>
+    <title>Kuiper Versions &#8212; Kuiper  documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8e8a900e" />
     <link rel="stylesheet" type="text/css" href="_static/app.min.css?v=9d1cc31f" />
     <script async="async" src="_static/app.umd.js?v=da3838b9"></script>
     <link rel="icon" href="_static/icon.svg"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Troubleshooting" href="troubleshooting.html" />
-    <link rel="prev" title="Custom Script Integration" href="customization.html" />
+    <link rel="next" title="Build Flow" href="build-flow.html" />
+    <link rel="prev" title="Configuration" href="configuration.html" />
    
   
   
@@ -88,10 +88,9 @@
         </div>
         <nav>
           <ul>
-<li><a class="reference internal" href="#">Repositories</a><ul>
-<li><a class="reference internal" href="#adi-repository">ADI Repository</a></li>
-<li><a class="reference internal" href="#raspberry-pi-repository">Raspberry Pi Repository</a></li>
-<li><a class="reference internal" href="#installing-packages">Installing Packages</a></li>
+<li><a class="reference internal" href="#">Kuiper Versions</a><ul>
+<li><a class="reference internal" href="#basic-image-default">Basic Image (Default)</a></li>
+<li><a class="reference internal" href="#optional-components">Optional Components</a></li>
 </ul>
 </li>
 </ul>
@@ -126,16 +125,16 @@ Content on this topic
 <li class="toctree-l1"><a class="reference internal" href="use-image.html">Using the Generated Image</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Configuration &amp; Building</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="kuiper-versions.html">Kuiper Versions</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Kuiper Versions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="build-flow.html">Build Flow</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Advanced Topics</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="stage-reference.html">Stage Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="customization.html">Custom Script Integration</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Repositories</a></li>
+<li class="toctree-l1"><a class="reference internal" href="repositories.html">Repositories</a></li>
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Reference</span></p>
 <ul>
@@ -156,59 +155,99 @@ Content on this topic
 </div>
           <div class="body" role="main">
             
-  <section id="repositories">
-<span id="id1"></span><h1>Repositories<a class="headerlink" href="#repositories" title="Link to this heading"></a></h1>
-<p>Kuiper uses multiple package repositories to install and update software.
-These repositories are configured during the build process in the bootstrap stage.</p>
+  <section id="kuiper-versions">
+<span id="id1"></span><h1>Kuiper Versions<a class="headerlink" href="#kuiper-versions" title="Link to this heading"></a></h1>
+<p>Depending on your configuration choices, different combinations of build stages
+and substages will be included. Here are the common build configurations:</p>
 <hr class="docutils" />
-<section id="adi-repository">
-<h2>ADI Repository<a class="headerlink" href="#adi-repository" title="Link to this heading"></a></h2>
-<p>The ADI APT repository is a collection of Debian package files that facilitates
-the distribution and installation of Analog Devices software packages. The
-repository contains .deb packages with boot files for carriers and Raspberry Pi.</p>
-<p><strong>Advantages of using the ADI repository:</strong></p>
+<section id="basic-image-default">
+<h2>Basic Image (Default)<a class="headerlink" href="#basic-image-default" title="Link to this heading"></a></h2>
+<p>The default configuration includes only the essential packages and configuration
+needed for a functional system:</p>
 <ul class="simple">
-<li><p>Easy installation, removal, and upgrading of packages (<code class="docutils literal notranslate"><span class="pre">apt</span> <span class="pre">install</span></code>, <code class="docutils literal notranslate"><span class="pre">apt</span> <span class="pre">remove</span></code>, <code class="docutils literal notranslate"><span class="pre">apt</span> <span class="pre">upgrade</span></code>)</p></li>
-<li><p>Simplified version management</p></li>
-<li><p>Package manager handles dependency resolution and conflict detection</p></li>
-<li><p>Centralized distribution of ADI-specific packages</p></li>
+<li><p><strong>01.bootstrap</strong> - Core filesystem setup</p></li>
+<li><p><strong>02.set-locale-and-timezone</strong> - Basic system localization</p></li>
+<li><p><strong>03.system-tweaks</strong> - User and system configuration</p></li>
+<li><p><strong>05.adi-tools</strong></p>
+<ul>
+<li><p>Substage <strong>14.write-git-logs</strong> - Build information tracking</p></li>
 </ul>
-<p><strong>Available packages include:</strong></p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">adi-carriers-boot-2022.r2</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">adi-carriers-boot-main</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">adi-rpi-boot-5.15.y</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">adi-rpi-boot-6.1</span></code></p></li>
+</li>
+<li><p><strong>06.boot-partition</strong></p>
+<ul>
+<li><p>Substage <strong>01.adi-boot-files</strong> - Intel/Xilinx boot files (if enabled)</p></li>
+<li><p>Substage <strong>02.rpi-boot-files</strong> - Raspberry Pi boot files (if enabled)</p></li>
+<li><p>Substage <strong>03.add-fstab</strong> - Filesystem table configuration</p></li>
+</ul>
+</li>
+<li><p><strong>07.extra-tweaks</strong></p>
+<ul>
+<li><p>Substage <strong>03.install-rpi-wifi-firmware</strong> - WiFi support (if needed)</p></li>
+</ul>
+</li>
+<li><p><strong>08.export-stage</strong></p>
+<ul>
+<li><p>Substage <strong>01.extend-rootfs</strong> - Root filesystem expansion script</p></li>
+<li><p>Substage <strong>03.generate-license</strong> License generation</p></li>
+<li><p>Substage <strong>04.export-image</strong> - Final image creation</p></li>
+</ul>
+</li>
 </ul>
 </section>
 <hr class="docutils" />
-<section id="raspberry-pi-repository">
-<h2>Raspberry Pi Repository<a class="headerlink" href="#raspberry-pi-repository" title="Link to this heading"></a></h2>
-<p>By default, the Kuiper image includes the official Raspberry Pi package
-repository in <code class="docutils literal notranslate"><span class="pre">/etc/apt/sources.list.d/raspi.list</span></code>. This repository provides
-access to Pi-specific packages and optimizations.</p>
-<p><strong>Using the Raspberry Pi repository:</strong></p>
-<ol class="arabic simple">
-<li><p>Edit <code class="docutils literal notranslate"><span class="pre">/etc/apt/sources.list.d/raspi.list</span></code> and uncomment the first line</p></li>
-<li><p>Update the package lists: <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt</span> <span class="pre">update</span></code></p></li>
-<li><p>Install packages as needed: <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt</span> <span class="pre">install</span> <span class="pre">&lt;package-name&gt;</span></code></p></li>
-</ol>
-<p>This gives you access to RPI-specific packages such as GPIO libraries,
-VideoCore tools, and other hardware-specific packages.</p>
-</section>
-<hr class="docutils" />
-<section id="installing-packages">
-<h2>Installing Packages<a class="headerlink" href="#installing-packages" title="Link to this heading"></a></h2>
-<p>To install packages from either repository on your running Kuiper system:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>update
-sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>&lt;package-name&gt;
-</pre></div>
-</div>
-<p>For example, to install Raspberry Pi boot files from the ADI repository:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>update
-sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>adi-rpi-boot-6.1
-</pre></div>
-</div>
+<section id="optional-components">
+<h2>Optional Components<a class="headerlink" href="#optional-components" title="Link to this heading"></a></h2>
+<p>These components can be added on top of the basic image:</p>
+<ul class="simple">
+<li><p><strong>Desktop Environment</strong> (<code class="docutils literal notranslate"><span class="pre">CONFIG_DESKTOP=y</span></code>):</p>
+<ul>
+<li><p><strong>04.configure-desktop-env</strong></p>
+<ul>
+<li><p>Substage <strong>01.desktop-env</strong> - XFCE desktop</p></li>
+<li><p>Substage <strong>02.vnc-server</strong> - Remote display access</p></li>
+<li><p>Substage <strong>03.cosmetic</strong> - Visual customizations</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>ADI Tools</strong> (various CONFIG_* options):</p>
+<ul>
+<li><p><strong>05.adi-tools</strong></p>
+<ul>
+<li><p>Substages for each tool (libiio, pyadi, libm2k, etc.)</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Source Code Export</strong> (<code class="docutils literal notranslate"><span class="pre">EXPORT_SOURCES=y</span></code>):</p>
+<ul>
+<li><p><strong>08.export-stage</strong></p>
+<ul>
+<li><p>Substage <strong>02.export-sources</strong> - Package source code collection</p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>Custom Scripts</strong> (<code class="docutils literal notranslate"><span class="pre">EXTRA_SCRIPT</span></code> set):</p>
+<ul>
+<li><p><strong>07.extra-tweaks</strong></p>
+<ul>
+<li><p>Substage <strong>01.extra-scripts</strong> - Custom script execution</p></li>
+</ul>
+</li>
+<li><p>For detailed instructions, see the <a class="reference internal" href="customization.html"><span class="doc">Custom Script Integration</span></a> section.</p></li>
+</ul>
+</li>
+<li><p><strong>Raspberry Pi Packages</strong> (<code class="docutils literal notranslate"><span class="pre">INSTALL_RPI_PACKAGES=y</span></code>):</p>
+<ul>
+<li><p><strong>07.extra-tweaks</strong></p>
+<ul>
+<li><p>Substage <strong>02.install-rpi-packages</strong> - RPI-specific packages</p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 </section>
 </section>
 
@@ -216,8 +255,8 @@ sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> <
           </div>
               <div class="related">
                 &nbsp;
-    <a href="customization.html" title="Previous document (Alt+Shift+LeftArrow)" class="prev">Custom Script Integration</a>
-    <a href="troubleshooting.html" title="Next document (Alt+Shift+RightArrow)" class="next">Troubleshooting</a>
+    <a href="configuration.html" title="Previous document (Alt+Shift+LeftArrow)" class="prev">Configuration</a>
+    <a href="build-flow.html" title="Next document (Alt+Shift+RightArrow)" class="next">Build Flow</a>
               </div>
           
         </div>
