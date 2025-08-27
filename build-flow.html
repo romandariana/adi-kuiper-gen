@@ -317,39 +317,35 @@ and loop devices (losetup).</p>
 <section id="running-the-build">
 <h3>Running the Build<a class="headerlink" href="#running-the-build" title="Link to this heading"></a></h3>
 <p>To build:</p>
-<div class="code-shell"><div><div class="no-select highlight-text notranslate"><div class="highlight"><pre><span></span>sudo bash build-docker.sh
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>bash<span class="w"> </span>build-docker.sh
 </pre></div>
 </div>
-<div class="clear-left"></div></div></div><p>or</p>
-<div class="code-shell"><div><div class="no-select highlight-text notranslate"><div class="highlight"><pre><span></span>sudo ./build-docker.sh
+<p>or</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>./build-docker.sh
 </pre></div>
 </div>
-<div class="clear-left"></div></div></div><p>Your Kuiper image will be in the <code class="docutils literal notranslate"><span class="pre">kuiper-volume/</span></code> folder inside the cloned
+<p>Your Kuiper image will be in the <code class="docutils literal notranslate"><span class="pre">kuiper-volume/</span></code> folder inside the cloned
 repository on your machine as a zip file named
 <code class="docutils literal notranslate"><span class="pre">image_YYYY-MM-DD-ADI-Kuiper-Linux-[arch].zip</span></code>. After successful build,
 the Docker image and the build container are removed if <code class="docutils literal notranslate"><span class="pre">PRESERVE_CONTAINER=n</span></code>.</p>
 <p>If needed, you can remove the build container with:</p>
-<div class="code-shell"><div><div class="no-select highlight-text notranslate"><div class="highlight"><pre><span></span>docker rm -v debian_&lt;DEBIAN_VERSION&gt;_rootfs_container
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>rm<span class="w"> </span>-v<span class="w"> </span>debian_&lt;DEBIAN_VERSION&gt;_rootfs_container
 </pre></div>
 </div>
-<div class="clear-left"></div></div></div><p>If you choose to preserve the Docker container, you can access the Kuiper
+<p>If you choose to preserve the Docker container, you can access the Kuiper
 root filesystem by copying it from the container to your machine with this command:</p>
-<div class="code-shell"><div><div class="no-select highlight-text notranslate"><div class="highlight"><pre><span></span>CONTAINER_ID=$(docker inspect --format=&quot;{{.Id}}&quot; debian_&lt;DEBIAN_VERSION&gt;_rootfs_container)
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">CONTAINER_ID</span><span class="o">=</span><span class="k">$(</span>docker<span class="w"> </span>inspect<span class="w"> </span>--format<span class="o">=</span><span class="s2">&quot;{{.Id}}&quot;</span><span class="w"> </span>debian_&lt;DEBIAN_VERSION&gt;_rootfs_container<span class="k">)</span>
+sudo<span class="w"> </span>docker<span class="w"> </span>cp<span class="w"> </span><span class="nv">$CONTAINER_ID</span>:&lt;TARGET_ARCHITECTURE&gt;_rootfs<span class="w"> </span>.
 </pre></div>
 </div>
-<div class="clear-left"></div></div><div><div class="no-select highlight-text notranslate"><div class="highlight"><pre><span></span>sudo docker cp $CONTAINER_ID:&lt;TARGET_ARCHITECTURE&gt;_rootfs .
-</pre></div>
-</div>
-<div class="clear-left"></div></div></div><p>You need to replace <code class="docutils literal notranslate"><span class="pre">&lt;DEBIAN_VERSION&gt;</span></code> and <code class="docutils literal notranslate"><span class="pre">&lt;TARGET_ARCHITECTURE&gt;</span></code> with
+<p>You need to replace <code class="docutils literal notranslate"><span class="pre">&lt;DEBIAN_VERSION&gt;</span></code> and <code class="docutils literal notranslate"><span class="pre">&lt;TARGET_ARCHITECTURE&gt;</span></code> with
 the ones in the configuration file.</p>
 <p>Example:</p>
-<div class="code-shell"><div><div class="no-select highlight-text notranslate"><div class="highlight"><pre><span></span>CONTAINER_ID=$(docker inspect --format=&quot;{{.Id}}&quot; debian_bookworm_rootfs_container)
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">CONTAINER_ID</span><span class="o">=</span><span class="k">$(</span>docker<span class="w"> </span>inspect<span class="w"> </span>--format<span class="o">=</span><span class="s2">&quot;{{.Id}}&quot;</span><span class="w"> </span>debian_bookworm_rootfs_container<span class="k">)</span>
+sudo<span class="w"> </span>docker<span class="w"> </span>cp<span class="w"> </span><span class="nv">$CONTAINER_ID</span>:armhf_rootfs<span class="w"> </span>.
 </pre></div>
 </div>
-<div class="clear-left"></div></div><div><div class="no-select highlight-text notranslate"><div class="highlight"><pre><span></span>sudo docker cp $CONTAINER_ID:armhf_rootfs .
-</pre></div>
-</div>
-<div class="clear-left"></div></div></div></section>
+</section>
 <section id="docker-container-configuration">
 <h3>Docker Container Configuration<a class="headerlink" href="#docker-container-configuration" title="Link to this heading"></a></h3>
 <p>When the Docker container is run, various required command line arguments are provided:</p>
