@@ -143,6 +143,7 @@ Documentation
    prerequisites
    quick-start
    use-image
+   hardware-configuration
 
 .. toctree::
    :maxdepth: 2
