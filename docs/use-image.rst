@@ -166,3 +166,13 @@ To verify that your Kuiper image is working correctly:
 
       # List connected IIO devices (if libiio installed)
       iio_info
+
+----
+
+Next Steps
+----------
+
+For ADI evaluation boards: If you need to configure your Kuiper system for 
+a specific ADI evaluation board and carrier combination, see 
+:doc:`Hardware Configuration <hardware-configuration>` for the complete 
+setup process.

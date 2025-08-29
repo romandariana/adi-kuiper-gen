@@ -3,7 +3,8 @@
 Quick Start
 ============
 
-This guide will help you build a basic Kuiper image with default settings.
+This guide will help you build a basic Kuiper image with default settings 
+(ready for Raspberry Pi).
 
 ----
 
@@ -31,6 +32,11 @@ The default configuration will build a basic 32-bit (armhf) Debian Bookworm imag
 - ADI tools: None (can be enabled as needed)
 
 This configuration creates what we call the "Basic Image" that includes only essential components. For details on exactly what stages and components are included in this basic build, see the Basic Image section under Kuiper Versions.
+
+For ADI evaluation boards, you can configure your target hardware now by 
+setting ``ADI_EVAL_BOARD`` and ``CARRIER`` in the config file, or configure 
+later after deployment. See :doc:`Hardware Configuration <hardware-configuration>` 
+for further information.
 
 For customization options, see the :doc:`Configuration <configuration>` section.
 
@@ -69,5 +75,6 @@ Next Steps
 
 - To write the image to an SD card and boot your device, see the :doc:`Using the Generated Image <use-image>` section
 - To customize your build with additional tools or settings, see the :doc:`Configuration <configuration>` section
+- To configure your built image for specific ADI evaluation boards, see :doc:`Hardware Configuration <hardware-configuration>`
 - To understand how the build process works, see the :doc:`Build Flow <build-flow>` section
 - For troubleshooting build issues, see the :doc:`Troubleshooting <troubleshooting>` section
