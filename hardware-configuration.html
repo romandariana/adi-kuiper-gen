@@ -8,8 +8,8 @@
 
     <title>Hardware Configuration &#8212; Kuiper  documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8e8a900e" />
-    <link rel="stylesheet" type="text/css" href="_static/app.min.css?v=9d1cc31f" />
-    <script async="async" src="_static/app.umd.js?v=da3838b9"></script>
+    <link rel="stylesheet" type="text/css" href="_static/app.min.css?v=37266688" />
+    <script async="async" src="_static/app.umd.js?v=8f62bab2"></script>
     <link rel="icon" href="_static/icon.png"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -99,8 +99,9 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#examples-and-common-use-cases">Examples and Common Use Cases</a><ul>
-<li><a class="reference internal" href="#switching-between-evaluation-boards">Switching Between Evaluation Boards</a></li>
-<li><a class="reference internal" href="#development-workflow">Development Workflow</a></li>
+<li><a class="reference internal" href="#same-hardware-reconfiguration">Same Hardware Reconfiguration</a></li>
+<li><a class="reference internal" href="#different-hardware-platforms">Different Hardware Platforms</a></li>
+<li><a class="reference internal" href="#development-and-testing-workflow">Development and Testing Workflow</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#next-steps">Next Steps</a></li>
@@ -238,7 +239,7 @@ Options:
   -h, --help        Show this help message
 
 Example:
-  sudo configure-setup.sh ad4003 zed
+  sudo configure-setup.sh ad4003 zedboard
 
 
 Available projects in your Kuiper image:
@@ -246,7 +247,7 @@ Available projects in your Kuiper image:
 ADI Eval Board    Carrier
 ad9361-fmcomms2   zedboard
 ad9361-fmcomms2   zc706
-ad4003            zed
+ad4003            zedboard
 adrv9009-zu11eg   adrv9009-zu11eg-revb
 </pre></div>
 </div>
@@ -254,10 +255,13 @@ adrv9009-zu11eg   adrv9009-zu11eg-revb
 </section>
 <section id="reconfiguring-your-hardware-setup">
 <h3>Reconfiguring Your Hardware Setup<a class="headerlink" href="#reconfiguring-your-hardware-setup" title="Link to this heading"></a></h3>
-<p>Once you’ve identified the hardware combination you want to use, reconfiguration requires root access to your Kuiper system (the <code class="docutils literal notranslate"><span class="pre">analog</span></code> user has sudo privileges) and that your system is running from an SD card or storage device.</p>
+<p>Hardware reconfiguration requires root access to your Kuiper system (the
+<code class="docutils literal notranslate"><span class="pre">analog</span></code> user has sudo privileges) and that your system is running from an
+SD card or storage device. The process varies depending on whether you’re
+switching to different physical hardware or reconfiguring for the same hardware.</p>
 <p>Follow these steps:</p>
 <ol class="arabic">
-<li><p><strong>Log into your Kuiper system</strong> via console, SSH, or VNC</p></li>
+<li><p><strong>Log into your current Kuiper system</strong> via console, SSH, or VNC</p></li>
 <li><p><strong>Check available configurations</strong> (if you haven’t already):</p>
 <div class="code-shell"><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
 </pre></div>
@@ -266,14 +270,16 @@ adrv9009-zu11eg   adrv9009-zu11eg-revb
 </pre></div>
 </div>
 <div class="clear-left"></div></div></div></li>
-<li><p><strong>Run the configuration command</strong> with your desired hardware combination:</p>
+<li><p><strong>Run the configuration command</strong> on your current system with your desired
+hardware combination:</p>
 <div class="code-shell"><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
 </pre></div>
 </div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>configure-setup.sh<span class="w"> </span>&lt;eval-board&gt;<span class="w"> </span>&lt;carrier&gt;
 </pre></div>
 </div>
-<div class="clear-left"></div></div></div><p>For example, to configure for the AD9361-FMCOMMS2 evaluation board on a ZedBoard carrier:</p>
+<div class="clear-left"></div></div></div><p>For example, to configure for the AD9361-FMCOMMS2 evaluation board on a
+ZedBoard carrier:</p>
 <div class="code-shell"><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
 </pre></div>
 </div>
@@ -284,7 +290,16 @@ adrv9009-zu11eg   adrv9009-zu11eg-revb
 </pre></div>
 </div>
 <div class="clear-left"></div></div></div></li>
-<li><p><strong>Reboot your system</strong> for the changes to take effect:</p>
+<li><p><strong>Shutdown your system</strong> (for hardware changes) or <strong>reboot</strong> (for same
+hardware):</p>
+<p>For different hardware platforms:</p>
+<div class="code-shell"><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>shutdown<span class="w"> </span>-h<span class="w"> </span>now
+</pre></div>
+</div>
+<div class="clear-left"></div></div></div><p>For same hardware reconfiguration:</p>
 <div class="code-shell"><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
 </pre></div>
 </div>
@@ -292,8 +307,32 @@ adrv9009-zu11eg   adrv9009-zu11eg-revb
 </pre></div>
 </div>
 <div class="clear-left"></div></div></div></li>
+<li><p><strong>Move the SD card</strong> (only if switching to different hardware):</p>
+<ul class="simple">
+<li><p>Remove the SD card from your current hardware</p></li>
+<li><p>Insert it into your target hardware platform</p></li>
+<li><p>Skip this step if reconfiguring for the same hardware</p></li>
+</ul>
+</li>
+<li><p><strong>Boot your target system</strong>:</p>
+<ul class="simple">
+<li><p>Power on the target hardware</p></li>
+<li><p>The system will boot with the new configuration</p></li>
+</ul>
+</li>
 </ol>
-<p>After rebooting, your Kuiper system will be configured to work with the specified hardware combination.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<ul class="simple">
+<li><p>Configuration changes take effect only after a complete boot cycle</p></li>
+<li><p>When switching between different carrier boards (e.g., ZedBoard to ZC706),
+the SD card must be physically moved to the new hardware</p></li>
+<li><p>For same-hardware reconfigurations, you can use <code class="docutils literal notranslate"><span class="pre">reboot</span></code> instead of the
+full shutdown/move/boot process</p></li>
+<li><p>Always use <code class="docutils literal notranslate"><span class="pre">shutdown</span> <span class="pre">-h</span> <span class="pre">now</span></code> when moving to different physical hardware
+to ensure proper system state</p></li>
+</ul>
+</div>
 </section>
 <section id="what-happens-during-reconfiguration">
 <h3>What Happens During Reconfiguration<a class="headerlink" href="#what-happens-during-reconfiguration" title="Link to this heading"></a></h3>
@@ -315,19 +354,23 @@ adrv9009-zu11eg   adrv9009-zu11eg-revb
 <hr class="docutils" />
 <section id="examples-and-common-use-cases">
 <h2>Examples and Common Use Cases<a class="headerlink" href="#examples-and-common-use-cases" title="Link to this heading"></a></h2>
-<section id="switching-between-evaluation-boards">
-<h3>Switching Between Evaluation Boards<a class="headerlink" href="#switching-between-evaluation-boards" title="Link to this heading"></a></h3>
-<p>If you’re working with multiple ADI evaluation boards, you can easily switch between them:</p>
+<section id="same-hardware-reconfiguration">
+<h3>Same Hardware Reconfiguration<a class="headerlink" href="#same-hardware-reconfiguration" title="Link to this heading"></a></h3>
+<p>When testing different evaluation board projects on the same carrier board,
+you can use the simple reboot workflow since no physical hardware changes:</p>
 <div class="code-shell"><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Configure for AD4003 on ZED board</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Test AD4003 project on ZedBoard</span>
 </pre></div>
 </div>
 <div class="clear-left"></div></div><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>configure-setup.sh<span class="w"> </span>ad4003<span class="w"> </span>zed
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>configure-setup.sh<span class="w"> </span>ad4003<span class="w"> </span>zedboard
+</pre></div>
+</div>
+<div class="clear-left"></div></div><div><div class="no-select highlight-text notranslate"><div class="highlight"><pre><span></span>Successfully prepared boot partition for running project ad4003 on zed.
 </pre></div>
 </div>
 <div class="clear-left"></div></div><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
@@ -342,13 +385,16 @@ adrv9009-zu11eg   adrv9009-zu11eg-revb
 <div class="clear-left"></div></div><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Later, switch to AD9361-FMCOMMS2 on ZC706</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Later, switch to AD9361-FMCOMMS2 on the same ZedBoard</span>
 </pre></div>
 </div>
 <div class="clear-left"></div></div><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>configure-setup.sh<span class="w"> </span>ad9361-fmcomms2<span class="w"> </span>zc706
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>configure-setup.sh<span class="w"> </span>ad9361-fmcomms2<span class="w"> </span>zedboard
+</pre></div>
+</div>
+<div class="clear-left"></div></div><div><div class="no-select highlight-text notranslate"><div class="highlight"><pre><span></span>Successfully prepared boot partition for running project ad9361-fmcomms2 on zedboard.
 </pre></div>
 </div>
 <div class="clear-left"></div></div><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
@@ -358,13 +404,64 @@ adrv9009-zu11eg   adrv9009-zu11eg-revb
 </pre></div>
 </div>
 <div class="clear-left"></div></div></div></section>
-<section id="development-workflow">
-<h3>Development Workflow<a class="headerlink" href="#development-workflow" title="Link to this heading"></a></h3>
-<p>During development, you might want to test the same software stack across different hardware platforms:</p>
+<section id="different-hardware-platforms">
+<h3>Different Hardware Platforms<a class="headerlink" href="#different-hardware-platforms" title="Link to this heading"></a></h3>
+<p>When switching between different carrier boards, follow the complete
+shutdown/move/boot workflow:</p>
 <div class="code-shell"><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Test on development board</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Configure for AD9361-FMCOMMS2 on ZedBoard</span>
+</pre></div>
+</div>
+<div class="clear-left"></div></div><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>configure-setup.sh<span class="w"> </span>ad9361-fmcomms2<span class="w"> </span>zedboard
+</pre></div>
+</div>
+<div class="clear-left"></div></div><div><div class="no-select highlight-text notranslate"><div class="highlight"><pre><span></span>Successfully prepared boot partition for running project ad9361-fmcomms2 on zedboard.
+</pre></div>
+</div>
+<div class="clear-left"></div></div><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>shutdown<span class="w"> </span>-h<span class="w"> </span>now
+</pre></div>
+</div>
+<div class="clear-left"></div></div></div><p>After shutdown, remove the SD card from the ZedBoard and insert it into your
+ZC706 carrier board, then power on the ZC706.</p>
+<div class="code-shell"><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Later, reconfigure for the same project on ZC706</span>
+</pre></div>
+</div>
+<div class="clear-left"></div></div><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>configure-setup.sh<span class="w"> </span>ad9361-fmcomms2<span class="w"> </span>zc706
+</pre></div>
+</div>
+<div class="clear-left"></div></div><div><div class="no-select highlight-text notranslate"><div class="highlight"><pre><span></span>Successfully prepared boot partition for running project ad9361-fmcomms2 on zc706.
+</pre></div>
+</div>
+<div class="clear-left"></div></div><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>shutdown<span class="w"> </span>-h<span class="w"> </span>now
+</pre></div>
+</div>
+<div class="clear-left"></div></div></div><p>Again, move the SD card from ZC706 to your target hardware and power on.</p>
+</section>
+<section id="development-and-testing-workflow">
+<h3>Development and Testing Workflow<a class="headerlink" href="#development-and-testing-workflow" title="Link to this heading"></a></h3>
+<p>A common development workflow combines both scenarios - testing on development
+hardware, then deploying to production hardware:</p>
+<div class="code-shell"><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Development phase: test different projects on ZedBoard</span>
 </pre></div>
 </div>
 <div class="clear-left"></div></div><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
@@ -382,7 +479,7 @@ adrv9009-zu11eg   adrv9009-zu11eg-revb
 <div class="clear-left"></div></div><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># ... run your tests ...</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># ... run development tests ...</span>
 </pre></div>
 </div>
 <div class="clear-left"></div></div><div><div class="no-select highlight-text notranslate"><div class="highlight"><pre><span></span>
@@ -391,13 +488,7 @@ adrv9009-zu11eg   adrv9009-zu11eg-revb
 <div class="clear-left"></div></div><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Switch to production hardware</span>
-</pre></div>
-</div>
-<div class="clear-left"></div></div><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
-</pre></div>
-</div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>configure-setup.sh<span class="w"> </span>ad9361-fmcomms2<span class="w"> </span>zc706
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>configure-setup.sh<span class="w"> </span>ad4003<span class="w"> </span>zedboard
 </pre></div>
 </div>
 <div class="clear-left"></div></div><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
@@ -409,7 +500,45 @@ adrv9009-zu11eg   adrv9009-zu11eg-revb
 <div class="clear-left"></div></div><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
 </pre></div>
 </div>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># ... verify on production target ...</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># ... test different evaluation board ...</span>
+</pre></div>
+</div>
+<div class="clear-left"></div></div></div><p>When ready for production deployment:</p>
+<div class="code-shell"><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Configure for production hardware</span>
+</pre></div>
+</div>
+<div class="clear-left"></div></div><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>configure-setup.sh<span class="w"> </span>ad9361-fmcomms2<span class="w"> </span>zc706
+</pre></div>
+</div>
+<div class="clear-left"></div></div><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>shutdown<span class="w"> </span>-h<span class="w"> </span>now
+</pre></div>
+</div>
+<div class="clear-left"></div></div></div><p>Remove SD card from ZedBoard, insert into ZC706 production hardware, and power on.</p>
+<div class="code-shell"><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># On production hardware, verify configuration</span>
+</pre></div>
+</div>
+<div class="clear-left"></div></div><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>configure-setup.sh<span class="w"> </span>--help
+</pre></div>
+</div>
+<div class="clear-left"></div></div><div><div class="no-select float-left highlight-default notranslate"><div class="highlight"><pre><span></span>~$
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Confirm your project shows in the available list</span>
 </pre></div>
 </div>
 <div class="clear-left"></div></div></div></section>

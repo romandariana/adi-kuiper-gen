@@ -4,12 +4,12 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta content="This guide will help you build a basic Kuiper image with default settings." name="description" />
+<meta content="This guide will help you build a basic Kuiper image with default settings (ready for Raspberry Pi)." name="description" />
 
     <title>Quick Start &#8212; Kuiper  documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8e8a900e" />
-    <link rel="stylesheet" type="text/css" href="_static/app.min.css?v=9d1cc31f" />
-    <script async="async" src="_static/app.umd.js?v=da3838b9"></script>
+    <link rel="stylesheet" type="text/css" href="_static/app.min.css?v=37266688" />
+    <script async="async" src="_static/app.umd.js?v=8f62bab2"></script>
     <link rel="icon" href="_static/icon.png"/>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -161,7 +161,8 @@ Content on this topic
             
   <section id="quick-start">
 <span id="id1"></span><h1>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading"></a></h1>
-<p>This guide will help you build a basic Kuiper image with default settings.</p>
+<p>This guide will help you build a basic Kuiper image with default settings
+(ready for Raspberry Pi).</p>
 <hr class="docutils" />
 <section id="clone-the-repository">
 <h2>1. Clone the Repository<a class="headerlink" href="#clone-the-repository" title="Link to this heading"></a></h2>
@@ -183,6 +184,10 @@ Content on this topic
 <li><p>ADI tools: None (can be enabled as needed)</p></li>
 </ul>
 <p>This configuration creates what we call the “Basic Image” that includes only essential components. For details on exactly what stages and components are included in this basic build, see the Basic Image section under Kuiper Versions.</p>
+<p>For ADI evaluation boards, you can configure your target hardware now by
+setting <code class="docutils literal notranslate"><span class="pre">ADI_EVAL_BOARD</span></code> and <code class="docutils literal notranslate"><span class="pre">CARRIER</span></code> in the config file, or configure
+later after deployment. See <a class="reference internal" href="hardware-configuration.html"><span class="doc">Hardware Configuration</span></a>
+for further information.</p>
 <p>For customization options, see the <a class="reference internal" href="configuration.html"><span class="doc">Configuration</span></a> section.</p>
 </section>
 <hr class="docutils" />
@@ -213,6 +218,7 @@ Content on this topic
 <ul class="simple">
 <li><p>To write the image to an SD card and boot your device, see the <a class="reference internal" href="use-image.html"><span class="doc">Using the Generated Image</span></a> section</p></li>
 <li><p>To customize your build with additional tools or settings, see the <a class="reference internal" href="configuration.html"><span class="doc">Configuration</span></a> section</p></li>
+<li><p>To configure your built image for specific ADI evaluation boards, see <a class="reference internal" href="hardware-configuration.html"><span class="doc">Hardware Configuration</span></a></p></li>
 <li><p>To understand how the build process works, see the <a class="reference internal" href="build-flow.html"><span class="doc">Build Flow</span></a> section</p></li>
 <li><p>For troubleshooting build issues, see the <a class="reference internal" href="troubleshooting.html"><span class="doc">Troubleshooting</span></a> section</p></li>
 </ul>
