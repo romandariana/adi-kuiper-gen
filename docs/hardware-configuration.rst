@@ -79,15 +79,15 @@ To see what hardware combinations your image supports:
       -h, --help	Show this help message
 
     Example:
-      sudo configure-setup.sh ad4003 zedboard
+      sudo configure-setup.sh ad4003 zed
 
 
     Available projects in your Kuiper image:
 
     ADI Eval Board    Carrier
-    ad9361-fmcomms2   zedboard
+    ad9361-fmcomms2   zed
     ad9361-fmcomms2   zc706
-    ad4003            zedboard
+    ad4003            zed
     adrv9009-zu11eg   adrv9009-zu11eg-revb
 
 This output shows all the evaluation board and carrier combinations that your specific Kuiper image can support.
@@ -122,7 +122,7 @@ Follow these steps:
 
    .. shell::
 
-      $sudo configure-setup.sh ad9361-fmcomms2 zedboard
+      $sudo configure-setup.sh ad9361-fmcomms2 zed
        Successfully prepared boot partition for running project ad9361-fmcomms2 on zedboard.
 
 #. **Shutdown your system** (for hardware changes) or **reboot** (for same 
@@ -191,12 +191,12 @@ you can use the simple reboot workflow since no physical hardware changes:
 .. shell::
 
    # Test AD4003 project on ZedBoard
-   $sudo configure-setup.sh ad4003 zedboard
+   $sudo configure-setup.sh ad4003 zed
     Successfully prepared boot partition for running project ad4003 on zed.
    $sudo reboot
 
    # Later, switch to AD9361-FMCOMMS2 on the same ZedBoard
-   $sudo configure-setup.sh ad9361-fmcomms2 zedboard
+   $sudo configure-setup.sh ad9361-fmcomms2 zed
     Successfully prepared boot partition for running project ad9361-fmcomms2 on zedboard.
    $sudo reboot
 
@@ -209,7 +209,7 @@ shutdown/move/boot workflow:
 .. shell::
 
    # Configure for AD9361-FMCOMMS2 on ZedBoard
-   $sudo configure-setup.sh ad9361-fmcomms2 zedboard
+   $sudo configure-setup.sh ad9361-fmcomms2 zed
     Successfully prepared boot partition for running project ad9361-fmcomms2 on zedboard.
    $sudo shutdown -h now
 
@@ -234,11 +234,11 @@ hardware, then deploying to production hardware:
 .. shell::
 
    # Development phase: test different projects on ZedBoard
-   $sudo configure-setup.sh ad9361-fmcomms2 zedboard
+   $sudo configure-setup.sh ad9361-fmcomms2 zed
    $sudo reboot
    # ... run development tests ...
 
-   $sudo configure-setup.sh ad4003 zedboard
+   $sudo configure-setup.sh ad4003 zed
    $sudo reboot
    # ... test different evaluation board ...
 

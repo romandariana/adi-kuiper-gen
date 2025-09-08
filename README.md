@@ -8,7 +8,7 @@ Whether you're prototyping with an ADI evaluation board, developing embedded app
 
 ## Quick Start
 
-1. **Check prerequisites**: Ubuntu 22.04 + Docker
+1. **Check prerequisites** ([see details](https://analogdevicesinc.github.io/adi-kuiper-gen/prerequisites.html)): Ubuntu 22.04 + Docker
 2. **Get Kuiper image**:
    - **Quick option**: Download pre-built from [GitHub Actions](https://github.com/analogdevicesinc/adi-kuiper-gen/actions/workflows/kuiper2_0-build.yml)
    - **Custom option**: Clone and build your own
@@ -19,7 +19,11 @@ Whether you're prototyping with an ADI evaluation board, developing embedded app
    sudo ./build-docker.sh
    ```
 
-3. **Write the image** to an SD card and boot your device
+   For more details, see the [quick start guide](https://analogdevicesinc.github.io/adi-kuiper-gen/quick-start.html).
+
+3. **Write the image** to an SD card and boot your device ([see Using Kuiper Images](https://analogdevicesinc.github.io/adi-kuiper-gen/use-kuiper-image.html))
+
+**For ADI evaluation boards**: See [Hardware Configuration](https://analogdevicesinc.github.io/adi-kuiper-gen/hardware-configuration.html) for setup instructions.
 
 ## Build Configurations
 
