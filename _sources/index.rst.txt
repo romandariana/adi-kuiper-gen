@@ -36,12 +36,12 @@ Get up and running with Kuiper on Raspberry Pi:
       cd adi-kuiper-gen
       sudo ./build-docker.sh
 
-#. :doc:`Write the image to an SD card and boot your device <use-image>`
+For detailed instructions, see the :doc:`Quick Start <quick-start>` section.
+
+#. :doc:`Write the image to an SD card and boot your device <use-kuiper-image>`
 
 **For ADI evaluation boards**: See :doc:`Hardware Configuration <hardware-configuration>` 
 for setup instructions.
-
-For detailed instructions, see the :doc:`Quick Start Guide <quick-start>`.
 
 ----
 
@@ -145,7 +145,7 @@ Documentation
 
    prerequisites
    quick-start
-   use-image
+   use-kuiper-image
    hardware-configuration
 
 .. toctree::

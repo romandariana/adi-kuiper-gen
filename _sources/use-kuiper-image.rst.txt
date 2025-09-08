@@ -1,11 +1,11 @@
-.. _use-image:
+.. _use-kuiper-image:
 
-Using the Generated Image
-==========================
+Using Kuiper Images
+===================
 
-After successfully building your Kuiper image, you'll need to write it to an 
-SD card or storage device and boot your target hardware. This section guides 
-you through that process.
+After obtaining your Kuiper image (built or downloaded), you'll need to write 
+it to an SD card or storage device and boot your target hardware. This section 
+guides you through that process.
 
 ----
 

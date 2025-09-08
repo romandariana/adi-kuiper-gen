@@ -3,10 +3,32 @@
 Quick Start
 ============
 
-This guide will help you build a basic Kuiper image with default settings 
-(ready for Raspberry Pi).
+This guide will help you get a Kuiper image quickly, either by downloading 
+a pre-built image or building your own with custom settings.
 
 ----
+
+Choose Your Path
+----------------
+
+**Option A: Download Pre-built Image (5 minutes)**
+   Get a ready-to-use basic Kuiper image immediately:
+
+   - Download the latest build from :git-adi-kuiper-gen:`GitHub Actions <actions/workflows/kuiper2_0-build.yml+>`
+   - Skip to :doc:`Using Kuiper Images <use-kuiper-image>` to write it to an SD card
+
+**Option B: Build Custom Image (30-60 minutes)**
+   Build your own image with specific configurations:
+
+   - Follow the build process below for full customization
+   - Configure exactly what tools and features you need
+
+----
+
+Building Your Own Image
+=======================
+
+If you chose Option B above, follow these steps to build a custom Kuiper image:
 
 1. Clone the Repository
 -----------------------
@@ -73,7 +95,7 @@ After a successful build, your Kuiper image will be available as a zip file in t
 Next Steps
 ----------
 
-- To write the image to an SD card and boot your device, see the :doc:`Using the Generated Image <use-image>` section
+- To write the image to an SD card and boot your device, see the :doc:`Using Kuiper Images <use-kuiper-image>` section
 - To customize your build with additional tools or settings, see the :doc:`Configuration <configuration>` section
 - To configure your built image for specific ADI evaluation boards, see :doc:`Hardware Configuration <hardware-configuration>`
 - To understand how the build process works, see the :doc:`Build Flow <build-flow>` section
