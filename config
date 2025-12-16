@@ -5,7 +5,7 @@
 # This image can be customized by adding one or more of the following libraries and tools.
 #
 # Set the architecture for Kuiper. Options: armhf (for 32 bits), arm64 (for 64 bits).
-TARGET_ARCHITECTURE=armhf
+TARGET_ARCHITECTURE=arm64
 #
 # Set the Debian version for Kuiper. Options: bullseye, bookworm.
 DEBIAN_VERSION=bookworm
@@ -20,14 +20,14 @@ PRESERVE_CONTAINER=n
 #
 # [DESKTOP ENVIRONMENT]
 # Contains XFCE4 desktop environment and X11VNC server.
-CONFIG_DESKTOP=n
+CONFIG_DESKTOP=y
 #
 #
 #
 # [LIBIIO]
 # Libiio is an Analog Devices library for interfacing with Linux IIO devices.
 # Github: https://github.com/analogdevicesinc/libiio
-CONFIG_LIBIIO=n
+CONFIG_LIBIIO=y
 CONFIG_LIBIIO_CMAKE_ARGS="-DWITH_HWMON=ON \
 			-DWITH_SERIAL_BACKEND=ON \
 			-DWITH_MAN=ON \
@@ -44,7 +44,7 @@ BRANCH_LIBIIO=libiio-v0
 # Pyadi: Analog Devices python interfaces for hardware with Industrial I/O drivers.
 # Github: https://github.com/analogdevicesinc/pyadi-iio
 # *depends on LIBIIO
-CONFIG_PYADI=n
+CONFIG_PYADI=y
 BRANCH_PYADI=main
 #
 # 
@@ -143,7 +143,7 @@ BRANCH_JESD_EYE_SCAN_GTK=main
 # Colorimeter: Application to be used with the EVAL-CN0363-PMDZ
 # Github: https://github.com/analogdevicesinc/colorimeter
 # *depends on LIBIIO
-CONFIG_COLORIMETER=n
+CONFIG_COLORIMETER=y
 BRANCH_COLORIMETER=main
 #
 #
@@ -192,9 +192,9 @@ CONFIG_RPI_BOOT_FILES=y
 # Contains boot files for Intel and Xilinx.
 #
 # For armhf:
-CONFIG_ARCH_ZYNQ=y
-CONFIG_ARCH_ARRIA10=y
-CONFIG_ARCH_CYCLONE5=y
+CONFIG_ARCH_ZYNQ=n
+CONFIG_ARCH_ARRIA10=n
+CONFIG_ARCH_CYCLONE5=n
 #
 # For arm64:
 CONFIG_ARCH_ZYNQMP=n

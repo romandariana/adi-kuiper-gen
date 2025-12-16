@@ -90,6 +90,10 @@ get_column () {
 	echo ${1} | cut -d " " -f ${2}
 }
 
+sanitize_html() {
+	echo "$1" | sed -e "s/</\&lt;/g" -e "s/>/\&gt;/g" -e "s/'/\&39;/g"
+}
+
 get_version () {
 	dpkg -l | awk '{ print $2 " " $3 }' | grep ${1} | cut -d ' ' -f2
 }
@@ -329,6 +333,108 @@ do
 
 	html_pre_file $license_file $package
 done
+
+# Extract Python package licenses using pip-licenses
+if command -v pip3 &> /dev/null; then
+	if pip3 install --quiet pip-licenses --break-system-packages 2>/dev/null; then
+		pip-licenses --format=json --with-urls --with-license-file \
+			--output-file=/tmp/pip_licenses.json 2>/dev/null
+	fi
+fi
+
+if [ -s /tmp/pip_licenses.json ]; then
+	jq -c '.[]' /tmp/pip_licenses.json | while read -r pkg; do
+		# Extract all fields in a single jq call for efficiency
+		name_raw=$(echo "$pkg" | jq -r '.Name')
+		version_raw=$(echo "$pkg" | jq -r '.Version')
+		license_raw=$(echo "$pkg" | jq -r '.License')
+		url_raw=$(echo "$pkg" | jq -r '.URL')
+		license_file_raw=$(echo "$pkg" | jq -r '.LicenseFile')
+		license_text_raw=$(echo "$pkg" | jq -r '.LicenseText')
+
+		# Normalize package name once for reuse
+		name_lower="${name_raw,,}"
+		pkg_normalized=$(echo "$name_lower" | tr '-' '_')
+		pkg_hyphen=$(echo "$pkg_normalized" | tr '_' '-')
+
+		# Fallback: Check Debian package copyright for apt-installed Python packages
+		# (pip-licenses can't find license files for apt-installed packages because
+		# Debian policy moves them to /usr/share/doc/<package>/copyright)
+		if [ "$license_file_raw" = "UNKNOWN" ] || [ -z "$license_file_raw" ]; then
+			# Special package name mappings (pip name -> debian suffix)
+			deb_suffix=""
+			case "$name_lower" in
+				pyyaml) deb_suffix="yaml" ;;
+				pygobject) deb_suffix="gi" ;;
+				pillow) deb_suffix="pil" ;;
+				typing_extensions|typing-extensions) deb_suffix="typing-extensions" ;;
+				importlib-metadata|importlib_metadata) deb_suffix="importlib-metadata" ;;
+			esac
+
+			# Auto-generate stripped names
+			stripped_py=""
+			[[ "$name_lower" == py* ]] && [[ "$name_lower" != python* ]] && stripped_py="${name_lower#py}"
+			stripped_python_suffix=""
+			[[ "$name_lower" == *-python ]] && stripped_python_suffix="${name_lower%-python}"
+
+			# Build list of candidate Debian package names to try (priority order)
+			deb_candidates=()
+			[ -n "$deb_suffix" ] && deb_candidates+=("python3-$deb_suffix" "python-$deb_suffix")
+			[ -n "$stripped_py" ] && deb_candidates+=("python3-$stripped_py" "python-$stripped_py")
+			[ -n "$stripped_python_suffix" ] && deb_candidates+=("python3-$stripped_python_suffix" "python-$stripped_python_suffix")
+			deb_candidates+=("python3-$pkg_normalized" "python-$pkg_normalized")
+			deb_candidates+=("python3-$pkg_hyphen" "python-$pkg_hyphen")
+			deb_candidates+=("python3-$name_lower" "python-$name_lower")
+			deb_candidates+=("$name_lower" "$pkg_hyphen")
+
+			for deb_name in "${deb_candidates[@]}"; do
+				deb_copyright="/usr/share/doc/$deb_name/copyright"
+				if [ -f "$deb_copyright" ]; then
+					license_file_raw="$deb_copyright"
+					license_text_raw=$(cat "$license_file_raw" 2>/dev/null)
+					break
+				fi
+			done
+		fi
+
+		# Extract license type from Debian copyright if still UNKNOWN
+		if [ "$license_raw" = "UNKNOWN" ] && [ -f "$license_file_raw" ]; then
+			# Try to extract license from Debian copyright format (e.g., "License: MIT")
+			extracted_license=$(awk '/^License:/ { print $2; exit }' "$license_file_raw" 2>/dev/null)
+			[ -n "$extracted_license" ] && license_raw="$extracted_license"
+		fi
+
+		# Sanitize all fields for HTML output
+		name=$(sanitize_html "$name_raw")
+		version=$(sanitize_html "$version_raw")
+		license=$(sanitize_html "$license_raw")
+		url=$(sanitize_html "$url_raw")
+		license_file=$(sanitize_html "$license_file_raw")
+		license_text=$(sanitize_html "$license_text_raw")
+
+		package_table_items $((var++)) "python-$name" "$version" "$license" "$url_raw"
+
+		# Generate individual license file
+		pkg_dir="copyright/python-${name_raw}"
+		pkg_file="${pkg_dir}/python-${name_raw}.html"
+		mkdir -p "$pkg_dir"
+		{
+			echo "<pre>"
+			echo "License information from package metadata:"
+			echo ""
+			echo "Package: $name"
+			echo "Version: $version"
+			echo "License: $license"
+			echo "License File: $license_file"
+			[ -n "$url_raw" ] && [ "$url_raw" != "UNKNOWN" ] && echo "URL: $url"
+			echo "$license_text"
+			echo "</pre>"
+		} > "$pkg_file"
+	done
+
+	rm -f /tmp/pip_licenses.json
+	pip3 uninstall -y pip-licenses --break-system-packages 2>/dev/null || true
+fi
 
 echo "</tbody>" >> ${FILE}
 echo "</table>" >> ${FILE}
