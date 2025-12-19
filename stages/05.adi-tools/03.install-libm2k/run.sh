@@ -6,8 +6,11 @@
 # Copyright (c) 2024 Analog Devices, Inc.
 # Author: Larisa Radu <larisa.radu@analog.com>
 
+SCRIPT_DIR="${BASH_SOURCE%/run.sh}"
+
 if [ "${CONFIG_LIBM2K}" = y ]; then
 	if [ "${CONFIG_LIBIIO}" = y ]; then
+		install_packages "${SCRIPT_DIR}"
 
 chroot "${BUILD_DIR}" << EOF
 		cd /usr/local/src

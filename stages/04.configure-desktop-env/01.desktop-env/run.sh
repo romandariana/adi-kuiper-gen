@@ -6,7 +6,11 @@
 # Copyright (c) 2024 Analog Devices, Inc.
 # Author: Larisa Radu <larisa.radu@analog.com>
 
+SCRIPT_DIR="${BASH_SOURCE%/run.sh}"
+
 if [ "${CONFIG_DESKTOP}" = y ]; then
+
+	install_packages "${SCRIPT_DIR}"
 
 	if [[ "${CONFIG_RPI_BOOT_FILES}" = y && "${TARGET_ARCHITECTURE}" = arm64 ]]; then
 

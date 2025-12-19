@@ -6,6 +6,8 @@
 # Copyright (c) 2024 Analog Devices, Inc.
 # Author: Larisa Radu <larisa.radu@analog.com>
 
+SCRIPT_DIR="${BASH_SOURCE%/run.sh}"
+
 export SCOPY_RELEASE=v2.0.0-beta-rc2
 export SCOPY_ARCHIVE=Scopy-${SCOPY_RELEASE}-Linux-${TARGET_ARCHITECTURE}-AppImage.zip
 export SCOPY_PATH=https://github.com/analogdevicesinc/scopy/releases/download/${SCOPY_RELEASE}/${SCOPY_ARCHIVE}
@@ -13,6 +15,7 @@ export SCOPY=Scopy-${SCOPY_RELEASE}-Linux-${TARGET_ARCHITECTURE}
 
 if [ "${CONFIG_SCOPY}" = y ]; then
 	if [ "${CONFIG_LIBIIO}" = y ]; then
+		install_packages "${SCRIPT_DIR}"
 
 chroot "${BUILD_DIR}" << EOF
 

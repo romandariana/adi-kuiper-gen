@@ -6,7 +6,11 @@
 # Copyright (c) 2024 Analog Devices, Inc.
 # Author: Larisa Radu <larisa.radu@analog.com>
 
+SCRIPT_DIR="${BASH_SOURCE%/run.sh}"
+
 if [ "${CONFIG_LIBIIO}" = y ]; then
+	install_packages "${SCRIPT_DIR}"
+
 	# Add iiod service
 	install -m 644 "${BASH_SOURCE%%/run.sh}"/files/iiod.service	"${BUILD_DIR}/lib/systemd/system/"
 

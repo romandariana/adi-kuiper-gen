@@ -6,6 +6,10 @@
 # Copyright (c) 2024 Analog Devices, Inc.
 # Author: Larisa Radu <larisa.radu@analog.com>
 
+SCRIPT_DIR="${BASH_SOURCE%/run.sh}"
+
+install_packages "${SCRIPT_DIR}"
+
 # Set the default system locale to American English with UTF-8 character set
 chroot "${BUILD_DIR}" << EOF	
 	sed -i '/en_US.UTF-8/s/^# //g' /etc/locale.gen

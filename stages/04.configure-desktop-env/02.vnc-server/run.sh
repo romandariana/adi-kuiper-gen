@@ -6,7 +6,11 @@
 # Copyright (c) 2024 Analog Devices, Inc.
 # Author: Larisa Radu <larisa.radu@analog.com>
 
+SCRIPT_DIR="${BASH_SOURCE%/run.sh}"
+
 if [ "${CONFIG_DESKTOP}" = y ]; then
+
+install_packages "${SCRIPT_DIR}"
 
 # Add x11vnc service
 install -m 644 "${BASH_SOURCE%%/run.sh}"/files/x11vnc.service "${BUILD_DIR}/lib/systemd/system/"

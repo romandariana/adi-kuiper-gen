@@ -6,6 +6,10 @@
 # Copyright (c) 2024 Analog Devices, Inc.
 # Author: Larisa Radu <larisa.radu@analog.com>
 
+SCRIPT_DIR="${BASH_SOURCE%/run.sh}"
+
+install_packages "${SCRIPT_DIR}"
+
 chroot "${BUILD_DIR}" << EOF
 	# Install xserver-xorg inside chroot
 	# Use DEBIAN_FRONTEND=noninteractive to suppress interactive prompt from keyboard-configuration package and use the default answer
