@@ -352,49 +352,20 @@ if [ -s /tmp/pip_licenses.json ]; then
 		license_file_raw=$(echo "$pkg" | jq -r '.LicenseFile')
 		license_text_raw=$(echo "$pkg" | jq -r '.LicenseText')
 
-		# Normalize package name once for reuse
-		name_lower="${name_raw,,}"
-		pkg_normalized=$(echo "$name_lower" | tr '-' '_')
-		pkg_hyphen=$(echo "$pkg_normalized" | tr '_' '-')
+		# Normalize package name for dpkg search
+		pkg_normalized=$(echo "${name_raw,,}" | tr '-' '_')
 
-		# Fallback: Check Debian package copyright for apt-installed Python packages
+		# Fallback: Find Debian package that owns this Python module
 		# (pip-licenses can't find license files for apt-installed packages because
-		# Debian policy moves them to /usr/share/doc/<package>/copyright)
+		# Debian policy stores them in /usr/share/doc/<package>/copyright)
 		if [ "$license_file_raw" = "UNKNOWN" ] || [ -z "$license_file_raw" ]; then
-			# Special package name mappings (pip name -> debian suffix)
-			deb_suffix=""
-			case "$name_lower" in
-				pyyaml) deb_suffix="yaml" ;;
-				pygobject) deb_suffix="gi" ;;
-				pillow) deb_suffix="pil" ;;
-				typing_extensions|typing-extensions) deb_suffix="typing-extensions" ;;
-				importlib-metadata|importlib_metadata) deb_suffix="importlib-metadata" ;;
-			esac
+			# Query dpkg to find which package owns this Python module
+			deb_pkg=$(dpkg -S "*/dist-packages/${pkg_normalized}*" 2>/dev/null | head -1 | cut -d: -f1)
 
-			# Auto-generate stripped names
-			stripped_py=""
-			[[ "$name_lower" == py* ]] && [[ "$name_lower" != python* ]] && stripped_py="${name_lower#py}"
-			stripped_python_suffix=""
-			[[ "$name_lower" == *-python ]] && stripped_python_suffix="${name_lower%-python}"
-
-			# Build list of candidate Debian package names to try (priority order)
-			deb_candidates=()
-			[ -n "$deb_suffix" ] && deb_candidates+=("python3-$deb_suffix" "python-$deb_suffix")
-			[ -n "$stripped_py" ] && deb_candidates+=("python3-$stripped_py" "python-$stripped_py")
-			[ -n "$stripped_python_suffix" ] && deb_candidates+=("python3-$stripped_python_suffix" "python-$stripped_python_suffix")
-			deb_candidates+=("python3-$pkg_normalized" "python-$pkg_normalized")
-			deb_candidates+=("python3-$pkg_hyphen" "python-$pkg_hyphen")
-			deb_candidates+=("python3-$name_lower" "python-$name_lower")
-			deb_candidates+=("$name_lower" "$pkg_hyphen")
-
-			for deb_name in "${deb_candidates[@]}"; do
-				deb_copyright="/usr/share/doc/$deb_name/copyright"
-				if [ -f "$deb_copyright" ]; then
-					license_file_raw="$deb_copyright"
-					license_text_raw=$(cat "$license_file_raw" 2>/dev/null)
-					break
-				fi
-			done
+			if [ -n "$deb_pkg" ] && [ -f "/usr/share/doc/$deb_pkg/copyright" ]; then
+				license_file_raw="/usr/share/doc/$deb_pkg/copyright"
+				license_text_raw=$(cat "$license_file_raw" 2>/dev/null)
+			fi
 		fi
 
 		# Extract license type from Debian copyright if still UNKNOWN
