@@ -12,7 +12,7 @@ if [ "${CONFIG_LIBIIO}" = y ]; then
 	install_packages "${SCRIPT_DIR}"
 
 	# Add iiod service
-	install -m 644 "${BASH_SOURCE%%/run.sh}"/files/iiod.service	"${BUILD_DIR}/lib/systemd/system/"
+	install -m 644 "${SCRIPT_DIR}"/files/iiod.service "${BUILD_DIR}/lib/systemd/system/"
 
 chroot "${BUILD_DIR}" << EOF
 	cd /usr/local/src

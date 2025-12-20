@@ -6,13 +6,15 @@
 # Copyright (c) 2024 Analog Devices, Inc.
 # Author: Larisa Radu <larisa.radu@analog.com>
 
+SCRIPT_DIR="${BASH_SOURCE%/run.sh}"
+
 if [ "${INSTALL_RPI_PACKAGES}" = y ]; then
-	
+
 	# Copy application launcher and icon for sense_emu
-	install -d 								"${BUILD_DIR}/usr/local/share/sense"
-	install -m 644 "${BASH_SOURCE%%/run.sh}"/files/sense_emu_gui.svg 	"${BUILD_DIR}/usr/local/share/sense/"
-	install -d 								"${BUILD_DIR}/usr/local/share/applications/"
-	install -m 644 "${BASH_SOURCE%%/run.sh}"/files/sense_emu_gui.desktop 	"${BUILD_DIR}/usr/local/share/applications/"
+	install -d "${BUILD_DIR}/usr/local/share/sense"
+	install -m 644 "${SCRIPT_DIR}"/files/sense_emu_gui.svg "${BUILD_DIR}/usr/local/share/sense/"
+	install -d "${BUILD_DIR}/usr/local/share/applications/"
+	install -m 644 "${SCRIPT_DIR}"/files/sense_emu_gui.desktop "${BUILD_DIR}/usr/local/share/applications/"
 
 	
 chroot "${BUILD_DIR}" << EOF

@@ -6,6 +6,8 @@
 # Copyright (c) 2024 Analog Devices, Inc.
 # Author: Larisa Radu <larisa.radu@analog.com>
 
+SCRIPT_DIR="${BASH_SOURCE%/run.sh}"
+
 USE_ADI_REPO_RPI_BOOT=y
 
 # Variables used for custom downloads from SWDownloads or Artifactory for testing purposes
@@ -88,8 +90,8 @@ EOF
 	fi
 
 	# Add custom files for Raspberry Pi
-	install -m 644 "${BASH_SOURCE%%/run.sh}"/files/cmdline.txt 			 "${BUILD_DIR}/boot/cmdline.txt"
-	install -m 644 "${BASH_SOURCE%%/run.sh}"/files/${TARGET_ARCHITECTURE}/config.txt "${BUILD_DIR}/boot/config.txt"
+	install -m 644 "${SCRIPT_DIR}"/files/cmdline.txt "${BUILD_DIR}/boot/cmdline.txt"
+	install -m 644 "${SCRIPT_DIR}"/files/${TARGET_ARCHITECTURE}/config.txt "${BUILD_DIR}/boot/config.txt"
 	
 	# Install Raspberry Pi boot files: start*.elf, fixup*.dat, bootcode.bin and LICENCE.broadcom. 
 	# These files are downloaded as a package from the Raspberry Pi apt repository.

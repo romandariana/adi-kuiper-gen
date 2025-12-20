@@ -11,7 +11,7 @@ SCRIPT_DIR="${BASH_SOURCE%/run.sh}"
 install_packages "${SCRIPT_DIR}"
 
 # Add udiskie service
-install -m 644 "${BASH_SOURCE%%/run.sh}"/files/udiskie.service "${BUILD_DIR}/lib/systemd/system/"
+install -m 644 "${SCRIPT_DIR}"/files/udiskie.service "${BUILD_DIR}/lib/systemd/system/"
 
 chroot "${BUILD_DIR}" << EOF
 	# Enable udiskie service to run automatically at every boot

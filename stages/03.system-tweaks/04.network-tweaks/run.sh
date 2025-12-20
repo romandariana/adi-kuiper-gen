@@ -7,9 +7,11 @@
 # Author: Monica Constandachi <monica.constandachi@analog.com>
 # Author: Larisa Radu <larisa.radu@analog.com>
 
+SCRIPT_DIR="${BASH_SOURCE%/run.sh}"
+
 # Add custom NetworkManager connection profiles
-install -m 600 "${BASH_SOURCE%%/run.sh}/files/eth0-linklocal"		"${BUILD_DIR}/etc/NetworkManager/system-connections/"
-install -m 600 "${BASH_SOURCE%%/run.sh}/files/Wired connection 1"	"${BUILD_DIR}/etc/NetworkManager/system-connections/"
+install -m 600 "${SCRIPT_DIR}/files/eth0-linklocal" "${BUILD_DIR}/etc/NetworkManager/system-connections/"
+install -m 600 "${SCRIPT_DIR}/files/Wired connection 1" "${BUILD_DIR}/etc/NetworkManager/system-connections/"
 
 chroot "${BUILD_DIR}" << EOF
 	# Link files that enable Predictable Network Interface names to null
